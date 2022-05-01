@@ -1,0 +1,268 @@
+<div class="header-image-wrapper">
+  <div class="bg"></div>
+  <div class="mask"></div>
+  <div class="header-image-content mh-200">
+    <p class="desc">املاک ثبت شده</p>
+  </div>
+</div>
+
+<div class="px-3 my-4">
+  <div class="theme-container">
+    <div class="row m-0 justify-content-center">
+      <div class="d-none d-md-block col-lg-3 col-md-3 site-card py-4">
+        <div class="row justify-content-center pb-3">
+          <div class="col-12">
+            <p-dropdown [options]="propertyTypes" placeholder="نوع ملک" [(ngModel)]="selectedPropertyType"
+              optionLabel="title"></p-dropdown>
+          </div>
+        </div>
+        <div class="row justify-content-center pb-3">
+          <div class="col-12">
+            <p-dropdown [options]="transactionTypes" placeholder="نوع آگهی" [(ngModel)]="selectedtransactionType"
+              optionLabel="title"></p-dropdown>
+          </div>
+        </div>
+        <div class="row justify-content-center pb-3">
+          <div class="col-12">
+            <p-multiSelect [options]="features" placeholder="ویژگی ها" [(ngModel)]="selectedFeatures"
+              optionLabel="title"></p-multiSelect>
+          </div>
+        </div>
+        <div class="row justify-content-center pb-3">
+          <div class="col-12">
+            <p-multiSelect [options]="conditions" placeholder="شرایط" [(ngModel)]="selectedConditions"
+              optionLabel="title"></p-multiSelect>
+          </div>
+        </div>
+        <div class="row justify-content-center pb-3">
+          <div class="col-12">
+            <p-multiSelect [options]="exchanges" placeholder="معاوضه با" [(ngModel)]="selectedExchanges"
+              optionLabel="title"></p-multiSelect>
+          </div>
+        </div>
+        <div class="row justify-content-center pb-3">
+          <div class="col-6">
+            <p-inputNumber [(ngModel)]="priceFrom" placeholder="قیمت از" mode="decimal" [minFractionDigits]="0">
+            </p-inputNumber>
+          </div>
+          <div class="col-6">
+            <p-inputNumber [(ngModel)]="priceTo" placeholder="قیمت تا" mode="decimal" [minFractionDigits]="0">
+            </p-inputNumber>
+          </div>
+        </div>
+        <div class="row justify-content-center pb-3">
+          <div class="col-12">
+            <p-checkbox [binary]="true" label="نمایش تخفیف دار ها" [(ngModel)]="hasDiscount" class="w-100"></p-checkbox>
+          </div>
+        </div>
+        <div class="row justify-content-center pt-4">
+          <div class="col-12">
+            <button class="green-button" type="submit">
+              <i class="fa fa-search"></i>
+              جستجو
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-sm-12 col-lg-8 col-md-8 site-box mr-0 mr-md-4">
+        <div class="row justify-content-center site-card d-flex flex-row">
+          <div class="d-none d-md-block col align-self-center text-right">
+            <p class="mb-0">{{ total }} مورد یافت شد.</p>
+          </div>
+          <div class="col align-self-center text-right text-md-left">
+            <div class="dropdown">
+              <button class="btn btn-link primary-color dropdown-toggle" type="button" id="dropdownMenuButton"
+                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                مرتب سازی
+              </button>
+              <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                <a class="dropdown-item" href="#">جدید ترین</a>
+                <a class="dropdown-item" href="#">ارزان ترین</a>
+                <a class="dropdown-item" href="#">گران ترین</a>
+                <a class="dropdown-item" href="#">فوری ها</a>
+              </div>
+            </div>
+          </div>
+          <div class="
+              d-sm-block d-md-none d-lg-none d-xl-none
+              col
+              align-self-center
+            ">
+            <i class="fa fa-ellipsis-v" (click)="displayMobileFilter = true"></i>
+          </div>
+        </div>
+        <div class="row justify-content-right mt-3">
+          <div class="item col-xs-12 col-sm-6 col-md-6 col-lg-4 col-xl-4 p-0" *ngFor="
+              let item of properties
+                | paginate
+                  : {
+                      itemsPerPage: pageSize,
+                      currentPage: page,
+                      totalItems: total
+                    }
+            ">
+            <div class="
+                property-card property-item
+                m-2
+                grid-item
+                column-4
+                full-width-page
+              ">
+              <div class="thumbnail-section">
+                <div class="price-type">
+                  <span class="green font-iran-bold">{{ item.priceType }}</span>
+                </div>
+                <div class="property-status">
+                  <span class="green font-iran-bold">{{ item.TransactionType[0].title }}</span>
+                </div>
+                <div class="property-image">
+                  <img *ngIf="item.image === null || item.image === ''" src="../../../assets/images/user-default.png"
+                    class="w-100" height="200px" />
+                  <img *ngIf="item.image !== null" [src]="item.image" class="w-100" height="200px" />
+                </div>
+                <div class="control-icons">
+                  <button class="add-to-favorite-button" title="افزودن به علاقه مندی ها"
+                    (click)="addToFavories(item._id)">
+                    <i class="material-icons mat-icon-sm">favorite_border</i>
+                  </button>
+                </div>
+              </div>
+              <div class="property-content-wrapper">
+                <div class="property-content text-right">
+                  <div class="content">
+                    <span class="code flex-nowrap">
+                      <span>کد: {{ item.code }}</span>
+                    </span>
+                    <h1 class="title">
+                      <a (click)="redirectToDetails(item._id)">{{ item.title }}</a>
+                    </h1>
+                    <p class="row address flex-nowrap">
+                      <i class="material-icons text-muted">location_on</i>
+                      <span>{{ item.state + "، " + item.city }}</span>
+                    </p>
+                    <div class="row justify-content-center" *ngIf="
+                        item.transactionTypeID === '613be86ae83f7824dce7cadb'
+                      ">
+                      <h3 class="primary-color price">
+                        <span>{{ item.price | number }} تومان</span>
+                      </h3>
+                    </div>
+
+                    <div class="row justify-content-center" *ngIf="item.transactionTypeID !== '613be86ae83f7824dce7cadb'">
+                      <h3 class="primary-color price">
+                        <span>رهن {{ item.priceMortgage | number }} - 
+                          اجاره {{ item.priceRent | number }} </span>
+                      </h3>
+                    </div>
+
+                    <div class="features mt-3">
+                      <p>
+                        <span>{{ item.area }}</span><span><i class="fa fa-arrows" aria-hidden="true"></i>متراژ
+                        </span>
+                      </p>
+                      <p>
+                        <span>{{ item.age }}</span><span><i class="fa fa-calendar" aria-hidden="true"></i>سن ملک
+                        </span>
+                      </p>
+                      <p>
+                        <span> {{ item.bath }}</span><span><i class="fa fa-bath"></i>حمام</span>
+                      </p>
+                      <p>
+                        <span>{{ item.bedroom }}</span>
+                        <span><i class="fa fa-bed" aria-hidden="true"></i>اتاق خواب</span>
+                      </p>
+                    </div>
+                  </div>
+
+                  <div class="actions row justify-content-center mt-3">
+                    <div class="col-6 align-self-center">
+                      <p class="date mb-0">
+                        <i class="material-icons text-muted">date_range</i>
+                        <span class="mx-2">{{ item.date }}</span>
+                      </p>
+                    </div>
+                    <div class="col-6 align-self-center d-flex flex-row-reverse">
+                      <a class="white-flat-button" (click)="redirectToDetails(itm._id)">جزییات</a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row justify-content-center mt-3 site-card">
+          <div class="col-md-12 col-sm-12 align-self-center">
+            <pagination-controls (pageChange)="page = $event" class="theme-pagination p-3 text-center"
+              previousLabel="قبلی" nextLabel="بعدی"></pagination-controls>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<p-sidebar [(visible)]="displayMobileFilter" [style]="{ width: '20em' }" position="left" [showCloseIcon]="true"
+  [baseZIndex]="10000">
+  <div class="text-center"></div>
+  <div class="d-flex flex-column">
+    <div class="mb-auto">
+      <div class="container">
+        <div class="row justify-content-center pb-3">
+          <div class="col-12">
+            <p-dropdown [options]="propertyTypes" placeholder="نوع ملک" [(ngModel)]="selectedPropertyType"
+              optionLabel="title"></p-dropdown>
+          </div>
+        </div>
+        <div class="row justify-content-center pb-3">
+          <div class="col-12">
+            <p-dropdown [options]="transactionTypes" placeholder="نوع آگهی" [(ngModel)]="selectedtransactionType"
+              optionLabel="title"></p-dropdown>
+          </div>
+        </div>
+        <div class="row justify-content-center pb-3">
+          <div class="col-12">
+            <p-multiSelect [options]="features" placeholder="ویژگی ها" [(ngModel)]="selectedFeatures"
+              optionLabel="title"></p-multiSelect>
+          </div>
+        </div>
+        <div class="row justify-content-center pb-3">
+          <div class="col-12">
+            <p-multiSelect [options]="conditions" placeholder="شرایط" [(ngModel)]="selectedConditions"
+              optionLabel="title"></p-multiSelect>
+          </div>
+        </div>
+        <div class="row justify-content-center pb-3">
+          <div class="col-12">
+            <p-multiSelect [options]="exchanges" placeholder="معاوضه با" [(ngModel)]="selectedExchanges"
+              optionLabel="title"></p-multiSelect>
+          </div>
+        </div>
+        <div class="row justify-content-center pb-3">
+          <div class="col-6">
+            <p-inputNumber [(ngModel)]="priceFrom" placeholder="قیمت از" mode="decimal" [minFractionDigits]="0">
+            </p-inputNumber>
+          </div>
+          <div class="col-6">
+            <p-inputNumber [(ngModel)]="priceTo" placeholder="قیمت تا" mode="decimal" [minFractionDigits]="0">
+            </p-inputNumber>
+          </div>
+        </div>
+        <div class="row justify-content-center pb-3">
+          <div class="col-12">
+            <p-checkbox [binary]="true" label="نمایش تخفیف دار ها" [(ngModel)]="hasDiscount" class="w-100"></p-checkbox>
+          </div>
+        </div>
+
+        <div class="row justify-content-center pt-4">
+          <div class="col-12">
+            <button class="green-button" type="submit">
+              <i class="fa fa-search"></i>
+              جستجو
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</p-sidebar>

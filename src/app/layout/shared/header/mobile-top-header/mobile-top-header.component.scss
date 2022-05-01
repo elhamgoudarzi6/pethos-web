@@ -1,0 +1,77 @@
+.top-app-bar {
+  background-color: var(--color-green);
+  color: #fff;
+  display: flex;
+  position: fixed;
+  flex-direction: column;
+  justify-content: space-between;
+  box-sizing: border-box;
+  width: 100%;
+  z-index: 4;
+}
+
+.top-toolbar {
+  position: relative;
+  height: 36px;
+  font-size: 12px;
+  padding: 0 16px;
+  z-index: 99;
+}
+.top-toolbar .mdc-button {
+  color: inherit;
+  font-size: 12px;
+  padding: 0 10px;
+}
+.top-toolbar .v-divider {
+  width: 1px;
+  height: 26px;
+  margin: 0 16px;
+  background-color: var(--color-grey);
+}
+.top-bar-item{
+  line-height: 25px;
+}
+
+
+:host::ng-deep .p-panelmenu .p-panelmenu-header > a {
+  padding: 1rem;
+  border: none;
+  background-color: transparent;
+  color: #495057;
+  font-weight: 600;
+  padding-bottom: 20px;
+  transition: box-shadow 0.2s;
+}
+
+
+:host::ng-deep .p-sidebar .p-sidebar-header {
+  padding: 1rem;
+  border-bottom: 1px solid #F6F6F6;
+}
+.sticky {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  background-color: var(--color-green);
+}
+
+
+.sticky {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  background-color: #FFFFFF;
+}
+
+.sticky .fa-bars, .sticky .account-btn {
+  color: var(--color-green) !important;
+}
+
+
+.dropdown-item {
+  text-align: right !important;
+  font-size: 12px;
+}
+ .account-btn{
+   font-size: 12px;
+ }

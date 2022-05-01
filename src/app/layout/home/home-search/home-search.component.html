@@ -1,0 +1,52 @@
+<div class="px-3">
+  <div class="theme-container">
+    <div class="property-card main-content-header">
+      <form class="search-wrapper">
+        <div class="row">
+          <div class="col-xs-12 col-sm-4 col-md-4 py-2">
+            <p-dropdown
+              [options]="propertyTypes"
+              placeholder="نوع ملک"
+              name="selectedPropertyType"
+              [(ngModel)]="selectedPropertyType"
+              (onChange) = "onTypeChange()"
+              optionLabel="title"
+            ></p-dropdown>
+          </div>
+          <div class="col-xs-12 col-sm-4 col-md-4 py-2">
+            <p-dropdown
+              [options]="propertySubTypes"
+              placeholder="نوع ملک"
+              name="selectedPropertyType"
+              [(ngModel)]="selectedPropertyType"
+              optionLabel="title"
+            ></p-dropdown>
+          </div>
+          <div class="col-xs-12 col-sm-4 col-md-4 py-2">
+            <p-dropdown
+              [options]="transactionTypes"
+              placeholder="نوع معامله"
+              name="selectedTransactionType"
+              [(ngModel)]="selectedTransactionType"
+              optionLabel="title"
+            ></p-dropdown>
+          </div>
+        </div>
+        <div class="row justify-content-center pt-4">
+          <button class="green-button ml-3" type="submit">
+            <i class="fa fa-search"></i>
+            جستجو
+          </button>
+          <button
+            class="white-button"
+            [routerLink]="['/properties']"
+            type="button"
+          >
+            جستجو پیشرفته
+          </button>
+        </div>
+      </form>
+    </div>
+
+  </div>
+</div>
