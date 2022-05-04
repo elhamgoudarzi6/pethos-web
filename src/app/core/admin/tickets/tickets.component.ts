@@ -2,7 +2,7 @@ import { TokenService } from './../../../auth/token.service';
 import { DialogService } from 'primeng/dynamicdialog';
 import { LocalStorageService } from './../../../auth/local-storage.service';
 import { AdminService } from './../admin.service';
-import { MessageService } from 'primeng/api';
+import {  MessageService } from 'primeng/api';
 import { Component, OnInit } from '@angular/core';
 import { TicketReplyComponent } from './ticket-reply/ticket-reply.component';
 
@@ -14,14 +14,13 @@ import { TicketReplyComponent } from './ticket-reply/ticket-reply.component';
 })
 export class TicketsComponent implements OnInit {
   tickets: any[];
-
   constructor(
     private messageService: MessageService,
     private service: AdminService,
     private token: TokenService,
     private localStorage: LocalStorageService,
-    private dialogService: DialogService
-  ) {}
+    private dialogService: DialogService,
+  ) { }
 
   ngOnInit(): void {
     this.getTickets();
@@ -48,7 +47,7 @@ export class TicketsComponent implements OnInit {
   showReplyTicketDialog(ticketId: string): void {
     const ref = this.dialogService.open(TicketReplyComponent, {
       data: {
-        ticketId,
+        ticketId
       },
       header: 'پاسخ تیکت',
       width: '70%',

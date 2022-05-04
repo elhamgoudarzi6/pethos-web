@@ -6,24 +6,12 @@
       <div class="row">
         <div class="col-lg-12 mb-3">
           <label class="panel-form-label">پیام</label>
-          <textarea
-            formControlName="message"
-            name="message"
-            pInputText
-            placeholder="پیام"
-          ></textarea>
-          <ul
-            class="mt-1 text-right list-inline"
-            *ngFor="let error of errorMessages.message"
-          >
-            <li
-              class="font-small text-danger font-weight-bold list-inline-item"
-              *ngIf="
-                form.get('detail.message').hasError(error.type) &&
-                (form.get('detail.message').dirty ||
-                  form.get('detail.message').touched)
-              "
-            >
+          <textarea formControlName="message" name="message" id="message" pInputText placeholder="پیام"></textarea>
+          <ul class="mt-1 text-right list-inline" *ngFor="let error of errorMessages.message">
+            <li class="font-small text-danger font-weight-bold list-inline-item" *ngIf="
+                form.get('message').hasError(error.type) &&
+                (form.get('message').dirty ||
+                  form.get('message').touched)">
               {{ error.message }}
             </li>
           </ul>
@@ -31,13 +19,7 @@
       </div>
       <div class="row">
         <div class="col d-flex flex-row-reverse">
-          <button
-            type="submit"
-            pButton
-            label="پاسخ"
-            [disabled]="form.invalid"
-            class="panel-dark-button mt-3"
-          ></button>
+          <button type="submit" pButton label="پاسخ" [disabled]="form.invalid" class="panel-dark-button mt-3"></button>
         </div>
       </div>
     </form>

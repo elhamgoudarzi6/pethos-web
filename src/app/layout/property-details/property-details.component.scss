@@ -17,8 +17,8 @@
   display: flex;
   flex-direction: column;
   box-sizing: border-box;
+  font-family: IRANSans_Light;
 }
-
 
 
 
@@ -42,12 +42,17 @@
 
 .property-detail p,.property-detail span{
   font-family: IRANSans_Light !important;
-  font-size: 13px;
+  font-size: 18px;
+  color: rgba(0, 0, 0, 0.54) !important;
 }
 .property-detail h2{
   font-family: IRANSans_Bold !important;
   font-weight: bold;
   font-size: 15px;
+}
+
+.property-detail .price{
+  color:var(--color-green);
 }
 
 @media screen and (max-width: 767px) {

@@ -32,55 +32,6 @@
         </div>
       </div>
       <div class="row">
-        <div class="col-lg-4 col-sm-12 mb-3">
-          <label class="panel-form-label">تاریخ</label>
-          <input type="text" pInputText name="date" id="date" #date />
-        </div>
-        <div class="col-lg-4 col-sm-12 mb-3">
-          <label class="panel-form-label">ساعت</label>
-          <input type="text" pInputText name="time" id="time" #time />
-        </div>
-        <div class="col-lg-4 col-sm-12 mb-3">
-          <button pButton type="button" (click)="addStatus(date.value, time.value)" label="ثبت وضعیت "
-            class="ui-button-info mt-4"></button>
-        </div>
-      </div>
-      <div class="p-fluid p-formgrid p-grid">
-        <div class="p-field p-col">
-          <p class="pt-3">لیست  وضعیت ها</p>
-          <p-table [value]="allStatus">
-            <ng-template pTemplate="header">
-              <tr>
-                <th>وضعیت</th>
-                <th>تاریخ</th>
-                <th>ساعت</th>
-                <th>حذف وضعیت</th>
-              </tr>
-            </ng-template>
-            <ng-template pTemplate="body" let-status let-rowIndex="rowIndex">
-              <tr>
-                <td>{{ status.status }}</td>
-                <td>{{ status.date }}</td>
-                <td>{{ status.time }}</td>
-                <td>
-                  <i class="fas fa-trash" (click)="deleteStatus(rowIndex)"></i>
-                </td>
-              </tr>
-            </ng-template>
-            <ng-template pTemplate="emptymessage">
-              <tr>
-                <td colspan="5" class="text-right">هیچ وضعیتی ثبت نشده است.</td>
-              </tr>
-            </ng-template>
-          </p-table>
-        </div>
-      </div>
-      <!-- <div class="col-lg-4 col-sm-12 mb-3">
-        <label class="panel-form-label">وضعیت درخواست</label>
-        <p-dropdown [options]="statuses" optionLabel="value" [style]="{ width: '100%' }"></p-dropdown>
-      </div> -->
-
-      <div class="row">
         <div class="col d-flex flex-row-reverse">
           <button type="submit" pButton label="ثبت" [disabled]="form.invalid" class="panel-dark-button mt-3"></button>
         </div>

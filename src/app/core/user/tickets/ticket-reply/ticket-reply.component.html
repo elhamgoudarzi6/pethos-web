@@ -9,6 +9,7 @@
           <textarea
             formControlName="message"
             name="message"
+            id="message"
             pInputText
             placeholder="پیام"
           ></textarea>
@@ -19,9 +20,9 @@
           <li
             class="font-small text-danger font-weight-bold list-inline-item"
             *ngIf="
-              form.get('detail.message').hasError(error.type) &&
-              (form.get('detail.message').dirty ||
-                form.get('detail.message').touched)
+              form.get('message').hasError(error.type) &&
+              (form.get('message').dirty ||
+                form.get('message').touched)
             "
           >
             {{ error.message }}

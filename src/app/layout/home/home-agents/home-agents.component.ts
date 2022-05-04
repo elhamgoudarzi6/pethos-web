@@ -1,6 +1,7 @@
 import { LayoutService } from './../../layout.service';
 import { OwlOptions } from 'ngx-owl-carousel-o';
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-home-agents',
@@ -40,7 +41,7 @@ export class HomeAgentsComponent implements OnInit {
       },
     },
   };
-  constructor(private service: LayoutService) {}
+  constructor(private service: LayoutService,private router: Router) {}
   ngOnInit(): void {
     this.getAgents();
   }
@@ -53,5 +54,9 @@ export class HomeAgentsComponent implements OnInit {
 
       }
     });
+  }
+
+  redirectToDetail(id: any): void {
+    this.router.navigate(['/agent/' + id]);
   }
 }

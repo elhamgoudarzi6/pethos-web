@@ -377,6 +377,14 @@ export class AdminService {
       { params }
     );
   }
+  updateStatusRequestVisit(token: string, id: string, data: any): any {
+    const params = new HttpParams().set('token', token);
+    return this.http.put(
+      this.baseUrl + 'updateStatusRequestVisit/' + id,
+      data,
+      { params }
+    );
+  }
   //#endregion
 
   //#region Property

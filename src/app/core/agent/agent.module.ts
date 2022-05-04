@@ -17,6 +17,7 @@ import { SetVisitDateTimeComponent } from './my-visit-requests/set-visit-date-ti
 import { ProfileComponent } from './profile/profile.component';
 import { NgOtpInputModule } from 'ng-otp-input';
 import { MyPropertiesComponent } from './my-properties/my-properties.component';
+import { AddStatusRequestComponent } from './my-visit-requests/add-status-request/add-status-request.component';
 
 @NgModule({
   declarations: [
@@ -29,7 +30,8 @@ import { MyPropertiesComponent } from './my-properties/my-properties.component';
     MyVisitRequestsComponent,
     SetVisitDateTimeComponent,
     ProfileComponent,
-    MyPropertiesComponent
+    MyPropertiesComponent,
+    AddStatusRequestComponent
   ],
   imports: [
     CommonModule,

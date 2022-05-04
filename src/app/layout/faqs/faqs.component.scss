@@ -1,6 +1,10 @@
 
 :host::ng-deep .mat-expansion-panel-header-title{
   margin-right: 0px !important;
+  font-family: IRANSans_Light !important;
+  font-size: 16px;
+  color: #000;
+
 }
 :host::ng-deep .mat-expansion-panel-header-description{
   text-align: left;
@@ -8,7 +12,7 @@ margin-right: 10px;
 margin-left: 15px;
 display: flex;
 flex-direction: column-reverse;
-font-family: IRANSans_Light;
+font-family: IRANSans_Light !important;
 font-size: 13px;
 }
 
@@ -21,4 +25,7 @@ font-size: 13px;
 }
 ::ng-deep .main-pc-toolbar .nav-link {
   color: rgba($color: #000000, $alpha: .8) !important;
+}
+::ng-deep .mat-expansion-panel:hover{
+  background-color:#fffffc;
 }

@@ -7,9 +7,7 @@
         <div class="col-lg-4 col-sm-12 mb-3">
           <label class="panel-form-label">مجموعه</label>
           <p-dropdown appendTo="body" emptyFilterMessage="نتیجه ای یافت نشد" emptyMessage="نتیجه ای یافت نشد"
-            [options]="pethos" optionLabel="title" (onChange)="onPethosChange($event)" [filter]="true" filterBy="title"
-            placeholder="-- انتخاب کنید --">
-          </p-dropdown>
+          [options]="pethos" (onChange)="onPethosChange($event)" optionLabel="title" [filter]="true" filterBy="title"></p-dropdown>
         </div>
         <div class="col-lg-4 mb-3">
           <label class="panel-form-label">شماره موبایل</label>
@@ -39,9 +37,7 @@
         <div class="col-lg-4 col-sm-12 mb-3">
           <label class="panel-form-label">سطح</label>
           <p-dropdown appendTo="body" emptyFilterMessage="نتیجه ای یافت نشد" emptyMessage="نتیجه ای یافت نشد"
-            [options]="agentLevel" optionLabel="level" (onChange)="onLevelChange($event)" [filter]="true"
-            filterBy="level">
-          </p-dropdown>
+            [options]="agentLevel" (onChange)="onLevelChange($event)"  optionLabel="level" [filter]="true" filterBy="level"></p-dropdown>
           <label class="panel-form-label mt-1">{{max |number}} - {{min | number}}</label>
         </div>
         <div class="col-lg-4 col-sm-12 mb-3">

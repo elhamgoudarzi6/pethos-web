@@ -3,7 +3,7 @@ import { AdminService } from './../../admin.service';
 import { LocalStorageService } from './../../../../auth/local-storage.service';
 import { MessageService } from 'primeng/api';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { Component, OnInit} from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-agent-edit',
@@ -18,12 +18,13 @@ export class AgentEditComponent implements OnInit {
   subPropertyTypes: any[] = [];
   selectedType: any;
   selectedSubType: any;
+  agentLevel: any[] = [];
   selectedLevel: any;
   pethos: any[] = [];
   selectedPethos: any;
-  min:any;
-  max:any;
-  agentLevel: any[] = [];
+  min: any;
+  max: any;
+
   mobileRegix = /^0?9[123]\d{8}$/;
   errorMessages = {
     mobile: [
@@ -51,20 +52,22 @@ export class AgentEditComponent implements OnInit {
 
   ngOnInit(): void {
     this.agent = this.config.data.agent;
-    this.min=this.agent.AgentLevel[0].min;
-    this.max=this.agent.AgentLevel[0].max;
+    this.min = this.agent.AgentLevel[0].min;
+    this.max = this.agent.AgentLevel[0].max;
     this.getPropertyTypes();
     this.getAgentLevel();
     this.getPethos();
     this.createForm();
   }
+
   getPethos(): any {
     this.service
       .getAllPethos(this.localStorage.userToken)
       .subscribe((response) => {
         if (response.success === true) {
           this.pethos = response.data;
-         // this.form.controls.pethosID.setValue(this.pethos[0]);
+          this.selectedPethos = this.agent.Pethos[0];
+          this.form.controls.pethosID.setValue(this.selectedPethos._id);
         } else {
           this.messageService.add({
             severity: 'error',
@@ -74,6 +77,7 @@ export class AgentEditComponent implements OnInit {
         }
       });
   }
+
   getAgentLevel(): any {
     this.service
       .getAllAgentLevel(this.localStorage.userToken)
@@ -82,7 +86,6 @@ export class AgentEditComponent implements OnInit {
           this.agentLevel = response.data;
           this.selectedLevel = this.agent.AgentLevel[0];
           this.form.controls.levelID.setValue(this.selectedLevel._id);
-          console.log(this.selectedLevel)
         } else {
           this.messageService.add({
             severity: 'error',
@@ -120,9 +123,8 @@ export class AgentEditComponent implements OnInit {
 
   onLevelChange(e: any) {
     this.form.controls.levelID.setValue(e.value._id);
-    this.min=e.value.min;
-    this.max=e.value.max;
-
+    this.min = e.value.min;
+    this.max = e.value.max;
   }
 
   onTypeChange(e: any) {
@@ -136,8 +138,7 @@ export class AgentEditComponent implements OnInit {
 
   createForm() {
     this.form = new FormGroup({
-      pethosID: new FormControl(this.agent.pethosID,
-        Validators.compose([Validators.required])),
+      pethosID: new FormControl(this.selectedPethos),
       mobile: new FormControl(
         this.agent.mobile,
         Validators.compose([
@@ -146,7 +147,7 @@ export class AgentEditComponent implements OnInit {
         ])
       ),
       info: new FormControl(this.agent.info),
-      levelID: new FormControl(this.agent.AgentLevel[0]),
+      levelID: new FormControl(this.selectedLevel),
       propertyTypeID: new FormControl(
         this.selectedType,
         Validators.compose([Validators.required])

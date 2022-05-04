@@ -21,6 +21,7 @@ export class AgentDetailsComponent implements OnInit {
   min:any;
   max:any;
   agentLevel: any[] = [];
+  pethos: any[] = [];
   constructor(
     private messageService: MessageService,
     private localStorage: LocalStorageService,
@@ -36,6 +37,23 @@ export class AgentDetailsComponent implements OnInit {
     this.max=this.agent.AgentLevel[0].max;
     this.getPropertyTypes();
     this.getAgentLevel();
+    this.getPethos();
+  }
+  getPethos(): any {
+    this.service
+      .getAllPethos(this.localStorage.userToken)
+      .subscribe((response) => {
+        if (response.success === true) {
+          this.pethos = response.data;
+          // this.form.controls.pethosID.setValue(this.pethos[0]);
+        } else {
+          this.messageService.add({
+            severity: 'error',
+            summary: ' دریافت اطلاعات ',
+            detail: response.data,
+          });
+        }
+      });
   }
   getAgentLevel(): any {
     this.service

@@ -6,20 +6,21 @@
         <div class="col-lg-4 rtl">
           <div class="left-blog">
             <h4>جدیدترین خبرها</h4>
-            <div class="recent-post" *ngFor="let i of news">
-              <div class="recent-single-post">
-                <div class="post-img">
-                  <a href="#">
-                    <img [src]="i['image']" [alt]="i['imageDescription']" class="img-fluid">
+            <div *ngFor="let i of news">
+              <div class="row">
+                <div class="col-5">
+                  <a [routerLink]="['/new',i['_id']]">
+                    <img  class="img-fluid h-100" [src]="i['image']" [alt]="i['imageDescription']">
                   </a>
                 </div>
-                <div class="pst-content">
-                  <p><a [routerLink]="['/news-detail',i['_id']]">{{i['title']}}</a></p>
-                 <div class="row">
-                  <i class="material-icons text-muted">date_range</i>
-                  <span class="mr-2">{{ i.date }}</span>
-                 </div>
-                  
+                <div class="col-7 text-right">
+                  <a [routerLink]="['/new',i['_id']]">{{i['title']}}</a>
+                  <div class="row justify-content-right mt-3">
+                    <p class="row text-right rtl">
+                      <i class="material-icons text-muted">date_range</i>
+                      <span class="mr-2">{{ i.date }}</span>
+                    </p>
+                  </div>
                 </div>
               </div>
             </div>
@@ -32,7 +33,7 @@
                 <div class="row justify-content-center new-box">
                   <div class="col-lg-8 col-md-8 col-sm-12 p-4">
                     <h3 class="text-right">
-                      <a [routerLink]="['/new']">{{ item.title }}</a>
+                      <a [routerLink]="['/new',item['_id']]">{{ item.title }}</a>
                     </h3>
                     <div class="description text-right text-justify mt-3">
                       <p class="desc">
@@ -41,7 +42,7 @@
                     </div>
                     <div class="actions row justify-content-center mt-3">
                       <div class="col-6 align-self-center text-left">
-                        <a class="white-flat-button" [routerLink]="['/new']">جزییات</a>
+                        <a class="white-flat-button" [routerLink]="['/new',item['_id']]">جزییات</a>
                       </div>
                       <div class="col-6 align-self-center d-flex flex-row-reverse">
                         <p class="row writer text-right rtl">

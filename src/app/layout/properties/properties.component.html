@@ -183,7 +183,7 @@
                       </p>
                     </div>
                     <div class="col-6 align-self-center d-flex flex-row-reverse">
-                      <a class="white-flat-button" (click)="redirectToDetails(itm._id)">جزییات</a>
+                      <a class="white-flat-button" [routerLink]="['/property',item['_id']]">جزییات</a>
                     </div>
                   </div>
                 </div>

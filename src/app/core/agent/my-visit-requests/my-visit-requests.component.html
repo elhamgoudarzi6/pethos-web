@@ -48,9 +48,9 @@
             <tr>
               <th style="width: 45px"></th>
               <th style="width: 45px">ردیف</th>
-              <th pSortableColumn="code">
-                کد ملک
-                <p-sortIcon field="code"></p-sortIcon>
+              <th pSortableColumn="fullName">
+                بازدید کننده
+                <p-sortIcon field="fullName"></p-sortIcon>
               </th>
               <th pSortableColumn="fullName">
                 مالک
@@ -63,7 +63,7 @@
               <th>زمان درخواست</th>
               <th>زمان بازدید</th>
               <th>وضعیت</th>
-              <th>عملیات</th>
+              <th>زمان بازدید</th>
             </tr>
           </ng-template>
           <ng-template pTemplate="body" let-rowIndex="rowIndex" let-request let-expanded="expanded">
@@ -78,11 +78,12 @@
                 {{ rowIndex + 1 }}
               </td>
               <td>
-                {{ request.Property[0].code }}
-              </td>
-              <td>
                 {{ request.User[0].fullName }} <br>
                 {{ request.User[0].mobile }}
+              </td>
+              <td>
+                {{ request.Property[0].User[0].fullName }} <br>
+                {{ request.Property[0].User[0].mobile }}
               </td>
               <td>
                 {{ request.Agent[0].fullName }}
@@ -94,11 +95,14 @@
                 {{ request.dateVisit + " " + request.timeVisit }}
               </td>
               <td>
-                {{ request.status[0].status }}
+                <button pButton pRipple icon="pi pi-plus"
+                  (click)="showAddStatusRequestDialog(request._id,request.status)"
+                  class="p-button-rounded p-button-text p-button-warning"></button>
               </td>
               <td>
                 <button pButton pRipple icon="pi pi-pencil" (click)="showSetVisitDateTimeDialog(request._id)"
                   class="p-button-rounded p-button-text p-button-warning"></button>
+
               </td>
             </tr>
           </ng-template>

@@ -33,7 +33,8 @@ export class MyTicketsComponent implements OnInit {
 
   getTickets(): any {
     this.service
-      .getAllTicketsByAgentId(this.localStorage.userToken, this.localStorage.userID)
+      .getAllTicketsByAgentId(this.localStorage.userToken,
+         this.localStorage.userID)
       .subscribe((response) => {
         if (response.success === true) {
           this.tickets = response.data;

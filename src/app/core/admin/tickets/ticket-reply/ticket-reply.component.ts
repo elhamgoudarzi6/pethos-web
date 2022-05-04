@@ -2,7 +2,7 @@ import { LocalStorageService } from 'src/app/auth/local-storage.service';
 import { AdminService } from './../../admin.service';
 import { DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { MessageService } from 'primeng/api';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { FormGroup, FormControl, FormBuilder } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -12,48 +12,46 @@ import { Component, OnInit } from '@angular/core';
   providers: [MessageService]
 })
 export class TicketReplyComponent implements OnInit {
-  form: FormGroup;
+  public form: FormGroup;
   errorMessages = {
     message: [{ type: 'required', message: 'پیام را وارد کنید.' }],
   };
   constructor(
-    private messageService: MessageService,
+    public messageService: MessageService,
     private localStorage: LocalStorageService,
     private service: AdminService,
     public ref: DynamicDialogRef,
-    public config: DynamicDialogConfig
-  ) {}
+    public config: DynamicDialogConfig,
+    private formBuilder: FormBuilder,
+  ) { }
 
   ngOnInit(): void {
-    this.createForm();
+    this.createform(); 
   }
 
-  createForm() {
-    this.form = new FormGroup({
-      message: new FormControl(null, Validators.compose([Validators.required])),
-      from: new FormControl('agent'),
-      to: new FormControl('user'),
-      date: new FormControl(),
-      time: new FormControl(),
+  createform(): void {
+    this.form = this.formBuilder.group({
+      message: new FormControl(null),
     });
   }
 
   submitForm(): void {
-    this.form.patchValue({
-      date: new Date().toLocaleDateString('fa-IR'),
-      time: new Date().toLocaleTimeString('fa-IR'),
-    });
-    this.service
-      .replyTicket(this.localStorage.userToken,this.config.data.ticketId, this.form.value)
-      .subscribe((response) => {
+    let data = {
+      detail: {
+        message:this.form.get('message').value,
+        from:'agent',
+        to:'user',
+        date: new Date().toLocaleDateString('fa-IR'),
+        time: new Date().toLocaleTimeString('fa-IR'),
+      }
+    }
+    console.log(data)
+    this.service.replyTicket(this.localStorage.userToken,
+      this.config.data.ticketId, data).subscribe((response) => {
         if (response.success === true) {
           this.ref.close(true);
         } else {
-          this.messageService.add({
-            severity: 'error',
-            summary: ' ثبت اطلاعات ',
-            detail: response.data,
-          });
+          this.messageService.add({ severity: 'error', summary: ' ثبت اطلاعات ', detail: response.data });
         }
       });
   }

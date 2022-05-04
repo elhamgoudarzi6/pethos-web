@@ -31,7 +31,7 @@
         <p-table #dt [value]="tickets" dataKey="id" [rows]="5" [showCurrentPageReport]="true"
           [rowsPerPageOptions]="[10, 25, 50]" [paginator]="true"
           currentPageReportTemplate="نمایش {first} تا {last} از {totalRecords} صفحه" [filterDelay]="0"
-          [globalFilterFields]="['title']">
+          [globalFilterFields]="['ticketNumber']">
           <ng-template pTemplate="caption">
             <div class="table-header row">
               <div class="col-sm-6 font-iran-bold">لیست تیکت ها</div>
@@ -52,6 +52,10 @@
             <tr>
               <th style="width: 45px"></th>
               <th style="width: 45px">ردیف</th>
+              <th pSortableColumn="ticketNumber" >
+                شماره 
+                <p-sortIcon field="ticketNumber"></p-sortIcon>
+              </th>
               <th pSortableColumn="userID">
                 کاربر
                 <p-sortIcon field="userID"></p-sortIcon>
@@ -79,6 +83,9 @@
               </td>
               <td>
                 {{ rowIndex + 1 }}
+              </td>
+              <td>
+                {{ticket.ticketNumber}}
               </td>
               <td>
                 {{

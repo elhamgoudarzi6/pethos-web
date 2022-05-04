@@ -1,5 +1,7 @@
 import { TokenService } from './../../../auth/token.service';
 import { SetVisitDateTimeComponent } from './set-visit-date-time/set-visit-date-time.component';
+import { AddStatusRequestComponent } from './add-status-request/add-status-request.component';
+
 import { DialogService } from 'primeng/dynamicdialog';
 import { AgentService } from './../agent.service';
 import { LocalStorageService } from './../../../auth/local-storage.service';
@@ -15,8 +17,6 @@ import { Component, OnInit } from '@angular/core';
 export class MyVisitRequestsComponent implements OnInit {
 
   requests: any[];
-  statuses: SelectItem[];
-  status: any;
   constructor(
     private messageService: MessageService,
     private service: AgentService,
@@ -66,33 +66,23 @@ export class MyVisitRequestsComponent implements OnInit {
     });
   }
 
-
-  onRowEditSave(id: any) {
-    let formData: any;
-    formData = {
-      'visited': this.status
-    }
-    this.service
-      .updateStatusRequestProperty(this.localStorage.userToken, this.localStorage.userID, formData)
-      .subscribe((response) => {
-        if (response.success === true) {
-          this.messageService.add({
-            severity: 'success',
-            summary: ' ویرایش اطلاعات ',
-            detail: 'اطلاعات با موفقیت ویرایش شد.'
-          });
-          this.getRequests();
-        } else {
-          this.messageService.add({
-            severity: 'error',
-            summary: ' ویرایش اطلاعات ',
-            detail: response.data,
-          });
-        }
-      });
-  }
-
-  onRowEditInit(status: any) {
-    this.status = status;
+  showAddStatusRequestDialog(requestId: string,status:any): void {
+    const ref = this.dialogService.open(AddStatusRequestComponent, {
+      data: {
+        requestId,status
+      },
+      header: 'ثبت وضعیت جدید',
+      width: '70%',
+    });
+    ref.onClose.subscribe((res) => {
+      if (res === true) {
+        this.messageService.add({
+          severity: 'success',
+          summary: ' ویرایش اطلاعات ',
+          detail: 'اطلاعات با موفقیت ثبت شد.',
+        });
+        this.getRequests();
+      }
+    });
   }
 }
