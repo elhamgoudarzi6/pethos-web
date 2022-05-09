@@ -1,9 +1,8 @@
 import { ActivatedRoute, Router } from '@angular/router';
 import { LayoutService } from './../layout.service';
-import { FormGroup, FormControl } from '@angular/forms';
+import { FormGroup, FormControl, FormBuilder } from '@angular/forms';
 import { MessageService } from 'primeng/api';
 import { LocalStorageService } from './../../auth/local-storage.service';
-import { UserService } from './../../core/user/user.service';
 import {
   ChangeDetectorRef,
   Component,
@@ -18,6 +17,8 @@ import { Galleria } from 'primeng/galleria';
   styleUrls: ['./property-details.component.scss'],
   providers: [MessageService],
 })
+
+
 export class PropertyDetailsComponent implements OnInit, OnDestroy {
   @ViewChild('galleria') galleria!: Galleria;
   form: FormGroup;
@@ -53,7 +54,7 @@ export class PropertyDetailsComponent implements OnInit, OnDestroy {
     private messageService: MessageService,
     private router: Router,
     private route: ActivatedRoute
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.router.routeReuseStrategy.shouldReuseRoute = () => false;
@@ -66,7 +67,6 @@ export class PropertyDetailsComponent implements OnInit, OnDestroy {
     this.service.getProperty(this.id).subscribe((response) => {
       if (response.success === true) {
         this.property = response.data[0];
-
         if (this.property.gallery.length > 0) {
           this.property.gallery.forEach((element) => {
             this.galleryFiles.push({
@@ -160,23 +160,27 @@ export class PropertyDetailsComponent implements OnInit, OnDestroy {
   }
 
   fullScreenIcon() {
-    return `pi ${
-      this.fullscreen ? 'pi-window-minimize' : 'pi-window-maximize'
-    }`;
+    return `pi ${this.fullscreen ? 'pi-window-minimize' : 'pi-window-maximize'
+      }`;
   }
 
   submitVisitRequest() {
     if (this.localStorage.getCurrentUser()) {
-      this.form = new FormGroup({
-        userID: new FormControl(this.localStorage.userID),
-        propertyID: new FormControl(this.id),
-        agentID: new FormControl(this.property.agentID),
-        date: new FormControl(new Date().toLocaleDateString('fa-IR')),
-        time: new FormControl(new Date().toLocaleTimeString('fa-IR')),
-      });
-
+      let data = {
+        status: {
+          status: "در انتظار بررسی",
+          date:new Date().toLocaleDateString('fa-IR'),
+          time:new Date().toLocaleTimeString('fa-IR')
+        },
+        userID: this.localStorage.userID,
+        propertyID:this.id,
+        agentID:this.property.agentID,
+        date:new Date().toLocaleDateString('fa-IR'),
+        time:new Date().toLocaleTimeString('fa-IR'),
+      }
+      console.log(data)
       this.service
-        .addVisitRequest(this.localStorage.userToken, this.form.value)
+        .addVisitRequest(this.localStorage.userToken, data)
         .subscribe((response) => {
           if (response.success === true) {
             this.messageService.add({

@@ -87,7 +87,7 @@ export class UserComponent implements OnInit {
         routerLink: '/user/visit-requests',
       },
       {
-        label: 'تیکت ها' + ' (' + this.ticketsCount + ')',
+        label: 'تیکت ها',
         routerLink: '/user/tickets',
       },
       {

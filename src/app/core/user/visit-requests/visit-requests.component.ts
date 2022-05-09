@@ -4,22 +4,23 @@ import { LocalStorageService } from 'src/app/auth/local-storage.service';
 import { MessageService, ConfirmationService } from 'primeng/api';
 import { DialogService } from 'primeng/dynamicdialog';
 import { Component, OnInit } from '@angular/core';
+import { StatusRequestComponent } from './status-request/status-request.component';
 
 @Component({
   selector: 'app-visit-requests',
   templateUrl: './visit-requests.component.html',
   styleUrls: ['./visit-requests.component.scss'],
-  providers: [MessageService, ConfirmationService]
+  providers: [MessageService, ConfirmationService,DialogService]
 })
 export class VisitRequestsComponent implements OnInit {
   requests: any[];
-
   constructor(
     private messageService: MessageService,
     private service: UserService,
     private token: TokenService,
     private localStorage: LocalStorageService,
-    private confirmationService: ConfirmationService
+    private confirmationService: ConfirmationService,
+    private dialogService: DialogService,
   ) {}
 
   ngOnInit(): void {
@@ -41,6 +42,20 @@ export class VisitRequestsComponent implements OnInit {
           });
         }
       });
+  }
+
+  showStatusRequestDialog(requestId: string,status:any): void {
+    const ref = this.dialogService.open(StatusRequestComponent, {
+      data: {
+        requestId,status
+      },
+      header: 'لیست وضعیت ',
+      width: '70%',
+    });
+    ref.onClose.subscribe((res) => {
+      if (res === true) {
+      }
+    });
   }
 
   deleteVisitRequest(id: any): void {

@@ -18,6 +18,9 @@ import { ProfileComponent } from './profile/profile.component';
 import { NgOtpInputModule } from 'ng-otp-input';
 import { MyPropertiesComponent } from './my-properties/my-properties.component';
 import { AddStatusRequestComponent } from './my-visit-requests/add-status-request/add-status-request.component';
+import { PropertyDetailsComponent } from './my-properties/property-details/property-details.component';
+import { PropertyEditComponent } from './my-properties/property-edit/property-edit.component';
+import { PropertyEditStatusComponent } from './my-properties/property-edit-status/property-edit-status.component';
 
 @NgModule({
   declarations: [
@@ -31,7 +34,10 @@ import { AddStatusRequestComponent } from './my-visit-requests/add-status-reques
     SetVisitDateTimeComponent,
     ProfileComponent,
     MyPropertiesComponent,
-    AddStatusRequestComponent
+    AddStatusRequestComponent,
+    PropertyDetailsComponent,
+    PropertyEditComponent,
+    PropertyEditStatusComponent
   ],
   imports: [
     CommonModule,
@@ -46,6 +52,9 @@ import { AddStatusRequestComponent } from './my-visit-requests/add-status-reques
     MyTicketAddComponent,
     MyTicketReplyComponent,
     SetVisitDateTimeComponent,
+    PropertyDetailsComponent,
+    PropertyEditComponent,
+    PropertyEditStatusComponent
   ],
 })
 export class AgentModule {}

@@ -17,9 +17,6 @@ export class AgentAddComponent implements OnInit {
   pethos: any[] = [];
   agentLevel: any[] = [];
   subPropertyTypes: any[] = [];
-  selectedType: any;
-  selectedSubType: any;
-  selectedPethos: any;
   min: any;
   max: any;
   mobileRegix = /^0?9[123]\d{8}$/;

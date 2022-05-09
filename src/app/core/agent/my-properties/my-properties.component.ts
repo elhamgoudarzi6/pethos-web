@@ -4,6 +4,10 @@ import { DialogService } from 'primeng/dynamicdialog';
 import { LocalStorageService } from './../../../auth/local-storage.service';
 import { MessageService, ConfirmationService, SelectItem } from 'primeng/api';
 import { Component, OnInit } from '@angular/core';
+import { FormGroup } from '@angular/forms';
+import { PropertyDetailsComponent } from './property-details/property-details.component';
+import { PropertyEditComponent } from './property-edit/property-edit.component';
+import { PropertyEditStatusComponent } from './property-edit-status/property-edit-status.component';
 
 @Component({
   selector: 'app-my-properties',
@@ -15,6 +19,9 @@ export class MyPropertiesComponent implements OnInit {
   properties: any[];
   statuses: SelectItem[];
   agentConfirm: any;
+  public form: FormGroup;
+  stateOptions: any[];
+  status: any;
 
   constructor(
     private messageService: MessageService,
@@ -26,10 +33,6 @@ export class MyPropertiesComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.statuses = [
-      { label: 'رد ', value:false },
-      { label: 'تایید ', value:true },
-    ];
     this.getProperties();
   }
 
@@ -50,8 +53,65 @@ export class MyPropertiesComponent implements OnInit {
       });
   }
 
+  showDetailsPropertyDialog(id: string): void {
+    let property = this.properties.filter((x) => x._id == id)[0];
+    const ref = this.dialogService.open(PropertyDetailsComponent, {
+      data: {
+        property,
+      },
+      header: 'مشاهده اطلاعات ملک',
+      width: '70%',
+    });
+    ref.onClose.subscribe((res) => {
+      if (res === true) {
+        this.getProperties();
+      }
+    });
+  }
 
- 
+  showEditPropertyDialog(id: string): void {
+    let property = this.properties.filter((x) => x._id == id)[0];
+    const ref = this.dialogService.open(PropertyEditComponent, {
+      data: {
+        property,
+      },
+      header: 'ویرایش ملک',
+      width: '70%',
+    });
+    ref.onClose.subscribe((res) => {
+      if (res === true) {
+        this.messageService.add({
+          severity: 'success',
+          summary: ' ویرایش اطلاعات ',
+          detail: 'اطلاعات با موفقیت ویرایش شد.',
+        });
+        this.getProperties();
+      }
+    });
+  }
+
+  showEditStatusPropertyDialog(id: string): void {
+    let property = this.properties.filter((x) => x._id == id)[0];
+    const ref = this.dialogService.open(PropertyEditStatusComponent, {
+      data: {
+        property,
+      },
+      header: 'ویرایش ملک',
+      width: '70%',
+    });
+    ref.onClose.subscribe((res) => {
+      if (res === true) {
+        this.messageService.add({
+          severity: 'success',
+          summary: ' ویرایش اطلاعات ',
+          detail: 'اطلاعات با موفقیت ویرایش شد.',
+        });
+        this.getProperties();
+      }
+    });
+  }
+
+
 
 
   deleteProperty(id: any, image: any, gallery: any, vrFiles: any): void {
@@ -114,33 +174,4 @@ export class MyPropertiesComponent implements OnInit {
     });
   }
 
-
-  onRowEditSave(id: any) {
-    let formData: any;
-    formData = {
-      'agentConfirm': this.agentConfirm
-    }
-    this.service
-      .updateProperty(this.localStorage.userToken, this.localStorage.userID, formData)
-      .subscribe((response) => {
-        if (response.success === true) {
-          this.messageService.add({
-            severity: 'success',
-            summary: ' ویرایش اطلاعات ',
-            detail: 'اطلاعات با موفقیت ویرایش شد.'
-          });
-          this.getProperties();
-        } else {
-          this.messageService.add({
-            severity: 'error',
-            summary: ' ویرایش اطلاعات ',
-            detail: response.data,
-          });
-        }
-      });
-  }
-
-  onRowEditInit(status: any){
-    this.agentConfirm = status;
-  }
 }

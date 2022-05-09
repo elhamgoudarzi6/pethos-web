@@ -13,8 +13,6 @@ import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms'
 })
 export class SetVisitDateTimeComponent implements OnInit {
   form: FormGroup;
-  statusForm: FormGroup;
-  visitStates: any;
   errorMessages = {
     dateVisit: [{ type: 'required', message: 'تاریخ بازدید را وارد کنید.' }],
     // status: [{ type: 'required', message: 'وضعیت بازدید را انتخاب کنید.' }],

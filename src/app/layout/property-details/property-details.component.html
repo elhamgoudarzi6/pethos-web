@@ -1,3 +1,5 @@
+<p-toast position="center"></p-toast>
+
 <div class="px-3">
   <div class="theme-container">
     <div class="row m-0 py-5 justify-content-center property-detail">
@@ -45,12 +47,16 @@
               <div class="col align-self-center text-right">
                 <h2 class="text-right rtl">کد: {{ property.code }}</h2>
               </div>
-              <div class="col align-self-center text-left d-flex flex-row-reverse">
-                <h2 class="text-right rtl">{{ property.title }}</h2>
+              <div class="col align-self-center text-right">
+                <h2 class="text-right rtl"> {{ property.PropertyType[0].title }} / {{ property.SubPropertyType[0].title
+                  }} / {{ property.TransactionType[0].title }}</h2>
               </div>
               <div class="col align-self-center text-left d-flex flex-row-reverse">
                 <i class="material-icons mat-icon-sm">favorite_border</i>
               </div>
+            </div>
+            <div class="justify-content-right row m-2 d-flex flex-row px-2 m-0">
+              <h2 class="text-right rtl">{{ property.title }}</h2>
             </div>
             <div class="justify-content-center row m-0 d-flex flex-row px-2 m-0">
               <div class="col align-self-center text-right">
@@ -62,15 +68,13 @@
                 </p>
               </div>
 
-              <div class="col align-self-center text-left"
-                *ngIf="property.transactionTypeID === '613be86ae83f7824dce7cadb'">
+              <div class="col align-self-center text-left" *ngIf="property.price !==null">
                 <h2 class="primary-color price">
                   <span>{{ property.price | number }} تومان</span>
                 </h2>
               </div>
 
-              <div class="col align-self-center text-left"
-                *ngIf="property.transactionTypeID !== '613be86ae83f7824dce7cadb'">
+              <div class="col align-self-center text-left" *ngIf="property.priceMortgage !== null">
                 <h2 class="primary-color price">
                   <span>رهن {{ property.priceMortgage | number }} تومان -
                     اجاره {{ property.priceRent | number }} تومان</span>

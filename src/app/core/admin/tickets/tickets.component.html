@@ -173,8 +173,9 @@
                     >
                       <tr>
                         <td>{{ rowIndex + 1 }}</td>
-                        <td *ngIf="detail.from === 'user'">کاربر</td>
-                        <td *ngIf="detail.from === 'agent'">مشاور</td>
+                        <td *ngIf="detail.from === 'user' && ticket.User[0].fullName != '' ">{{ ticket.User[0].fullName }}</td>
+                        <td *ngIf="detail.from === 'user' && ticket.User[0].fullName === ''">کاربر</td>
+                        <td *ngIf="detail.from === 'agent'">{{ ticket.Agent[0].fullName }}</td>
                         <td>{{ detail.message }}</td>
                         <td>
                           {{ detail.date + "-" + detail.time }}

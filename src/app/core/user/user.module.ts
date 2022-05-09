@@ -4,11 +4,7 @@ import { NgOtpInputModule } from 'ng-otp-input';
 import { AngularMaterialListModule } from './../../angular-material-list.module';
 import { PrimengListModule } from './../../primeng-list.module';
 import { UserRoutingModule } from './user-routing.module';
-import {
-  NgModule,
-  NO_ERRORS_SCHEMA,
-  CUSTOM_ELEMENTS_SCHEMA,
-} from '@angular/core';
+import {NgModule,NO_ERRORS_SCHEMA,CUSTOM_ELEMENTS_SCHEMA} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { UserComponent } from './user.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
@@ -18,9 +14,9 @@ import { TicketsComponent } from './tickets/tickets.component';
 import { TicketAddComponent } from './tickets/ticket-add/ticket-add.component';
 import { TicketReplyComponent } from './tickets/ticket-reply/ticket-reply.component';
 import { PropertiesComponent } from './properties/properties.component';
-import { TicketAddByPropertyComponent } from './tickets/ticket-add-by-property/ticket-add-by-property.component';
 import { PropertyEditComponent } from './properties/property-edit/property-edit.component';
 import { PropertyDetailsComponent } from './properties/property-details/property-details.component';
+import { StatusRequestComponent } from './visit-requests/status-request/status-request.component';
 
 @NgModule({
   declarations: [
@@ -33,9 +29,9 @@ import { PropertyDetailsComponent } from './properties/property-details/property
     TicketReplyComponent,
     PropertiesComponent,
     PropertyAddComponent,
-    TicketAddByPropertyComponent,
     PropertyEditComponent,
     PropertyDetailsComponent,
+    StatusRequestComponent
   ],
   imports: [
     CommonModule,
@@ -51,8 +47,8 @@ import { PropertyDetailsComponent } from './properties/property-details/property
     PropertyEditComponent,
     PropertyDetailsComponent,
     TicketAddComponent,
-    TicketAddByPropertyComponent,
     TicketReplyComponent,
+    StatusRequestComponent
   ],
   schemas: [NO_ERRORS_SCHEMA, CUSTOM_ELEMENTS_SCHEMA],
 })

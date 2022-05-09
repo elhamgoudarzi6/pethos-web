@@ -130,6 +130,7 @@ export class AgentEditComponent implements OnInit {
   onTypeChange(e: any) {
     this.form.controls.propertyTypeID.setValue(e.value._id);
     this.subPropertyTypes = e.value.SubPropertyType;
+    this.form.controls.subPropertyTypeID.setValue(e.value.SubPropertyType[0]._id)
   }
 
   onSubTypeChange(e: any) {
@@ -174,13 +175,13 @@ export class AgentEditComponent implements OnInit {
           this.form.controls.image.setValue(response.imagePath);
           this.messageService.add({
             severity: 'success',
-            summary: ' آپلود تصویر محصول ',
+            summary: ' آپلود تصویر  ',
             detail: 'تصویر با موفقیت آپلود شد.',
           });
         } else {
           this.messageService.add({
             severity: 'error',
-            summary: ' آپلود تصویر محصول ',
+            summary: ' آپلود تصویر  ',
             detail: response.data,
           });
         }

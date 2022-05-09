@@ -109,7 +109,6 @@ export class UserService {
   }
   deleteVisitRequest(token: string, id: any): any {
     const params = new HttpParams().set('token', token);
-
     return this.http.delete(
       this.baseUrl + 'deleteRequestVisit/' + id,
       {params}

@@ -1,4 +1,4 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders,HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
 @Injectable({
@@ -14,48 +14,30 @@ export class LayoutService {
 
   //#region Favorites
   getAllFavorites(token: string, id: string): any {
-    const httpOptions = {
-      headers: new HttpHeaders({
-        'Content-Type': 'application/json',
-        'x-access-token': token,
-      }),
-    };
-    return this.http.get(this.baseUrl + 'getAllFavorite/' + id, httpOptions);
+    const params = new HttpParams().set('token', token);
+    return this.http.get(this.baseUrl + 'getAllFavorite/' + id,  { params });
   }
   addFavorite(token: string, data: any): any {
-    const httpOptions = {
-      headers: new HttpHeaders({
-        'Content-Type': 'application/json',
-        'x-access-token': token,
-      }),
-    };
-    return this.http.post(this.baseUrl + 'registerFavorite', data, httpOptions);
+    const params = new HttpParams().set('token', token);
+    return this.http.post(this.baseUrl + 'registerFavorite', data, { params });
   }
   deleteFavorite(token: string, id: any): any {
-    const httpOptions = {
-      headers: new HttpHeaders({
-        'Content-Type': 'application/json',
-        'x-access-token': token,
-      }),
-    };
-    return this.http.delete(this.baseUrl + 'deleteFavorite/' + id, httpOptions);
+    const params = new HttpParams().set('token', token);
+    return this.http.delete(this.baseUrl + 'deleteFavorite/' + id, { params });
   }
   //#endregion
 
   //#region VisitRequest
   addVisitRequest(token: string, data: any): any {
-    const httpOptions = {
-      headers: new HttpHeaders({
-        'Content-Type': 'application/json',
-        'x-access-token': token,
-      }),
-    };
+    const params = new HttpParams().set('token', token);
     return this.http.post(
       this.baseUrl + 'registerRequestVisit',
       data,
-      httpOptions
+      { params }
     );
   }
+
+ 
   //#endregion
 
   //#region Property

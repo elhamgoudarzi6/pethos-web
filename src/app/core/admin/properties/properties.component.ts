@@ -2,6 +2,7 @@ import { PropertyAddComponent } from './property-add/property-add.component';
 import { TokenService } from './../../../auth/token.service';
 import { PropertyDetailsComponent } from './property-details/property-details.component';
 import { PropertyEditComponent } from './property-edit/property-edit.component';
+import { PropertyEditStatusComponent } from './property-edit-status/property-edit-status.component';
 import { AdminService } from './../admin.service';
 import { DialogService } from 'primeng/dynamicdialog';
 import { LocalStorageService } from './../../../auth/local-storage.service';
@@ -24,7 +25,7 @@ export class PropertiesComponent implements OnInit {
     private localStorage: LocalStorageService,
     private dialogService: DialogService,
     private confirmationService: ConfirmationService
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.getProperties();
@@ -96,6 +97,28 @@ export class PropertiesComponent implements OnInit {
     });
     ref.onClose.subscribe((res) => {
       if (res === true) {
+        this.getProperties();
+      }
+    });
+  }
+
+
+  showEditStatusPropertyDialog(id: string): void {
+    let property = this.properties.filter((x) => x._id == id)[0];
+    const ref = this.dialogService.open(PropertyEditStatusComponent, {
+      data: {
+        property,
+      },
+      header: 'ویرایش ملک',
+      width: '70%',
+    });
+    ref.onClose.subscribe((res) => {
+      if (res === true) {
+        this.messageService.add({
+          severity: 'success',
+          summary: ' ویرایش اطلاعات ',
+          detail: 'اطلاعات با موفقیت ویرایش شد.',
+        });
         this.getProperties();
       }
     });

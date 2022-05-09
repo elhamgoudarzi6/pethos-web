@@ -50,6 +50,7 @@ import { VisitRequestsComponent } from './visit-requests/visit-requests.componen
 import { AdministratorSecurityComponent } from './administrators/administrator-security/administrator-security.component';
 import { SetVisitDateTimeComponent } from './visit-requests/set-visit-date-time/set-visit-date-time.component';
 import { AddStatusRequestComponent } from './visit-requests/add-status-request/add-status-request.component';
+import { PropertyEditStatusComponent } from './properties/property-edit-status/property-edit-status.component';
 
 @NgModule({
   declarations: [
@@ -98,7 +99,8 @@ import { AddStatusRequestComponent } from './visit-requests/add-status-request/a
     VisitRequestsComponent,
     AdministratorSecurityComponent,
     SetVisitDateTimeComponent,
-    AddStatusRequestComponent
+    AddStatusRequestComponent,
+    PropertyEditStatusComponent
   ],
   imports: [
     CommonModule,
@@ -138,7 +140,8 @@ import { AddStatusRequestComponent } from './visit-requests/add-status-request/a
     PropertyDetailsComponent,
     TicketReplyComponent,
     SetVisitDateTimeComponent,
-    AddStatusRequestComponent
+    AddStatusRequestComponent,
+    PropertyEditStatusComponent
   ],
 })
 export class AdminModule {}

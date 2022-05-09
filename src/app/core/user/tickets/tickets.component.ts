@@ -6,7 +6,6 @@ import { MessageService } from 'primeng/api';
 import { Component, OnInit } from '@angular/core';
 import { TicketAddComponent } from './ticket-add/ticket-add.component';
 import { TicketReplyComponent } from './ticket-reply/ticket-reply.component';
-import { TicketAddByPropertyComponent } from './ticket-add-by-property/ticket-add-by-property.component';
 
 @Component({
   selector: 'app-tickets',
@@ -78,22 +77,7 @@ export class TicketsComponent implements OnInit {
     });
   }
 
-  showAddTicketByPropertyDialog(): void {
-    const ref = this.dialogService.open(TicketAddByPropertyComponent, {
-      header: 'ثبت تیکت',
-      width: '70%',
-    });
-    ref.onClose.subscribe((res) => {
-      if (res === true) {
-        this.messageService.add({
-          severity: 'success',
-          summary: ' ثبت اطلاعات ',
-          detail: 'اطلاعات با موفقیت ثبت شد.',
-        });
-        this.getTickets();
-      }
-    });
-  }
+
 
   showReplyTicketDialog(ticketId: string): void {
     const ref = this.dialogService.open(TicketReplyComponent, {

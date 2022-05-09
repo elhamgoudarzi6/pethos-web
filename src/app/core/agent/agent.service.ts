@@ -85,11 +85,7 @@ export class AgentService {
   }
   updateProperty(token: string, id: string, data: any): any {
     const params = new HttpParams().set('token', token);
-    return this.http.put(
-      this.baseUrl + 'updateProperty/' + id,
-      data,
-      { params }
-    );
+    return this.http.put(this.baseUrl + 'updateProperty/' + id, data, { params });
   }
   deleteProperty(token: string, id: string): any {
     const params = new HttpParams().set('token', token);
@@ -172,6 +168,42 @@ export class AgentService {
   }
   //#endregion
 
+
+  //#region Conditions
+  getAllConditions(token: string): any {
+    const params = new HttpParams().set('token', token);
+    return this.http.get(this.baseUrl + 'getAllCondition', { params });
+  }
+  //#endregion
+
+  //#region Exchanges
+  getAllExchanges(token: string): any {
+    const params = new HttpParams().set('token', token);
+    return this.http.get(this.baseUrl + 'getAllExchange', { params });
+  }
+  //#endregion
+
+  //#region Transaction Types
+  getAllTransactionTypes(token: string): any {
+    const params = new HttpParams().set('token', token);
+    return this.http.get(this.baseUrl + 'getAllTransactionType', { params });
+  }
+  //#endregion
+
+  //#region Features
+  getAllFeatures(token: string): any {
+    const params = new HttpParams().set('token', token);
+    return this.http.get(this.baseUrl + 'getAllFeature', { params });
+  }
+  //#endregion
+  getAllSubPropertyTypes(token: string): any {
+    const params = new HttpParams().set('token', token);
+    return this.http.get(this.baseUrl + 'getAllSubPropertyType', { params });
+  }
+  getAllPropertyTypes(token: string): any {
+    const params = new HttpParams().set('token', token);
+    return this.http.get(this.baseUrl + 'getAllPropertyType', { params });
+  }
 }
 function params(arg0: string, params: any): any {
   throw new Error('Function not implemented.');
