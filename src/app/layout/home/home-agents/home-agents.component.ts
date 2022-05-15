@@ -50,8 +50,6 @@ export class HomeAgentsComponent implements OnInit {
     this.service.getAllAgents().subscribe((response) => {
       if (response.success === true) {
         this.agents = response.data;
-        console.log(this.agents);
-
       }
     });
   }

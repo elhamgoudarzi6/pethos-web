@@ -47,6 +47,16 @@ const routes: Routes = [
     ],
   },
   {
+    path: 'properties/:transaction/:type/:subType',
+    component: LayoutComponent,
+    children: [
+      {
+        path: '',
+        component: PropertiesComponent
+      },
+    ],
+  },
+  {
     path: 'agents',
     component: LayoutComponent,
     children: [
@@ -162,4 +172,4 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule],
 })
-export class LayoutRoutingModule {}
+export class LayoutRoutingModule { }

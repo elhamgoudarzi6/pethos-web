@@ -10,7 +10,8 @@ import { PcTopHeaderComponent } from './shared/header/pc-top-header/pc-top-heade
 import { HeaderComponent } from './shared/header/header.component';
 import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { CommonModule } from '@angular/common';
-
+import {BreadcrumbModule} from 'primeng/breadcrumb';
+import {MenuItem} from 'primeng/api';
 import { LayoutRoutingModule } from './layout-routing.module';
 
 import { CarouselModule } from 'ngx-owl-carousel-o';
@@ -78,6 +79,7 @@ import { FavoritesComponent } from './favorites/favorites.component';
     PrimengListModule,
     AngularMaterialListModule,
     NgxPaginationModule,
+    BreadcrumbModule,
   ],
   schemas: [ CUSTOM_ELEMENTS_SCHEMA ]
 })

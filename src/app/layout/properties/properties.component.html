@@ -5,17 +5,20 @@
     <p class="desc">املاک ثبت شده</p>
   </div>
 </div>
+<!-- <p-breadcrumb [model]="items" [home]="home" styleClass="pr-5"></p-breadcrumb> -->
 
+<section class="breadcrumbs">
+  <div class="container">
+    <ol class="pb-0">
+      <li><a routerLink="/"><i class="pi pi-home"></i></a></li>
+      <li>همه ی املاک</li>
+    </ol>
+  </div>
+</section>
 <div class="px-3 my-4">
   <div class="theme-container">
     <div class="row m-0 justify-content-center">
       <div class="d-none d-md-block col-lg-3 col-md-3 site-card py-4">
-        <div class="row justify-content-center pb-3">
-          <div class="col-12">
-            <p-dropdown [options]="propertyTypes" placeholder="نوع ملک" [(ngModel)]="selectedPropertyType"
-              optionLabel="title"></p-dropdown>
-          </div>
-        </div>
         <div class="row justify-content-center pb-3">
           <div class="col-12">
             <p-dropdown [options]="transactionTypes" placeholder="نوع آگهی" [(ngModel)]="selectedtransactionType"
@@ -24,30 +27,74 @@
         </div>
         <div class="row justify-content-center pb-3">
           <div class="col-12">
-            <p-multiSelect [options]="features" placeholder="ویژگی ها" [(ngModel)]="selectedFeatures"
-              optionLabel="title"></p-multiSelect>
+            <p-dropdown [options]="propertyTypes" placeholder="نوع کاربری" (onChange)="onTypeChange($event)"
+              optionLabel="title"></p-dropdown>
           </div>
         </div>
         <div class="row justify-content-center pb-3">
           <div class="col-12">
-            <p-multiSelect [options]="conditions" placeholder="شرایط" [(ngModel)]="selectedConditions"
-              optionLabel="title"></p-multiSelect>
+            <p-dropdown [options]="subPropertyTypes" placeholder="نوع ملک" (onChange)="onSubTypeChange($event)"
+              optionLabel="title"></p-dropdown>
+          </div>
+        </div>
+
+        <div class="row justify-content-center pb-3">
+          <div class="col-12">
+            <p-multiSelect [options]="features" (onChange)="onChangeFeature($event)" placeholder="ویژگی ها"
+              [(ngModel)]="selectedFeatures" optionLabel="title"></p-multiSelect>
           </div>
         </div>
         <div class="row justify-content-center pb-3">
           <div class="col-12">
-            <p-multiSelect [options]="exchanges" placeholder="معاوضه با" [(ngModel)]="selectedExchanges"
-              optionLabel="title"></p-multiSelect>
+            <p-multiSelect [options]="conditions" (onChange)="onChangeCondition($event)" placeholder="شرایط"
+              [(ngModel)]="selectedConditions" optionLabel="title"></p-multiSelect>
+          </div>
+        </div>
+        <div class="row justify-content-center pb-3">
+          <div class="col-12">
+            <p-multiSelect [options]="exchanges" (onChange)="onChangeExchange($event)" placeholder="معاوضه با"
+              [(ngModel)]="selectedExchanges" optionLabel="title"></p-multiSelect>
           </div>
         </div>
         <div class="row justify-content-center pb-3">
           <div class="col-6">
-            <p-inputNumber [(ngModel)]="priceFrom" placeholder="قیمت از" mode="decimal" [minFractionDigits]="0">
+            <p-multiSelect [options]="baths" (onChange)="onChangeBath($event)" placeholder="حمام"
+              [(ngModel)]="selectedbaths" optionLabel="title"></p-multiSelect>
+          </div>
+          <div class="col-6">
+            <p-multiSelect [options]="rooms" (onChange)="onChangeRoom($event)" placeholder="اتاق خواب"
+              [(ngModel)]="selectedrooms" optionLabel="title"></p-multiSelect>
+          </div>
+        </div>
+        <div class="row justify-content-center pb-3">
+          <div class="col-6">
+            <p-inputNumber (onInput)="onInputareaFrom($event)" [(ngModel)]="areaFrom" placeholder="متراژ از"
+              mode="decimal" [minFractionDigits]="0">
             </p-inputNumber>
           </div>
           <div class="col-6">
-            <p-inputNumber [(ngModel)]="priceTo" placeholder="قیمت تا" mode="decimal" [minFractionDigits]="0">
+            <p-inputNumber (onInput)="onInputareaTo($event)" [(ngModel)]="areaTo" placeholder="متراژ تا" mode="decimal"
+              [minFractionDigits]="0">
             </p-inputNumber>
+          </div>
+        </div>
+        <div class="row justify-content-center pb-3">
+          <div class="col-6">
+            <p-inputNumber (onInput)="onInputpriceFrom($event)" [(ngModel)]="priceFrom" placeholder="قیمت از"
+              mode="decimal" [minFractionDigits]="0">
+            </p-inputNumber>
+          </div>
+          <div class="col-6">
+            <p-inputNumber (onInput)="onInputpriceTo($event)" [(ngModel)]="priceTo" placeholder="قیمت تا" mode="decimal"
+              [minFractionDigits]="0">
+            </p-inputNumber>
+          </div>
+        </div>
+        <div class="row justify-content-center pb-3" [formGroup]="form">
+          <div class="col-12">
+            <p-chips placeholder=" کلمه کلیدی " [addOnTab]="true" 
+            [addOnBlur]="true">
+            </p-chips>
           </div>
         </div>
         <div class="row justify-content-center pb-3">
@@ -55,11 +102,15 @@
             <p-checkbox [binary]="true" label="نمایش تخفیف دار ها" [(ngModel)]="hasDiscount" class="w-100"></p-checkbox>
           </div>
         </div>
-        <div class="row justify-content-center pt-4">
-          <div class="col-12">
-            <button class="green-button" type="submit">
+        <div class="row justify-content-center p-3">
+          <div class="col-6">
+            <button (click)="searchProperty()" class="green-button" type="submit">
               <i class="fa fa-search"></i>
               جستجو
+            </button>
+          </div>
+          <div class="col-6">
+            <button (click)="goProperty(0, 0, 0)" class="white-flat-button" type="submit"> همه املاک
             </button>
           </div>
         </div>
@@ -77,18 +128,16 @@
                 مرتب سازی
               </button>
               <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                <a class="dropdown-item" href="#">جدید ترین</a>
-                <a class="dropdown-item" href="#">ارزان ترین</a>
-                <a class="dropdown-item" href="#">گران ترین</a>
-                <a class="dropdown-item" href="#">فوری ها</a>
+                <a class="dropdown-item" (click)="onChangeSortID(1)" [ngClass]="sortId === 1 ? 'is-active' : ''">جدید
+                  ترین</a>
+                <a class="dropdown-item" (click)="onChangeSortID(2)" [ngClass]="sortId === 2 ? 'is-active' : ''">ارزان
+                  ترین</a>
+                <a class="dropdown-item" (click)="onChangeSortID(3)" [ngClass]="sortId === 3 ? 'is-active' : ''">گران
+                  ترین</a>
               </div>
             </div>
           </div>
-          <div class="
-              d-sm-block d-md-none d-lg-none d-xl-none
-              col
-              align-self-center
-            ">
+          <div class="d-sm-block d-md-none d-lg-none d-xl-nonecol align-self-center">
             <i class="fa fa-ellipsis-v" (click)="displayMobileFilter = true"></i>
           </div>
         </div>
@@ -142,16 +191,16 @@
                       <span>{{ item.state + "، " + item.city }}</span>
                     </p>
                     <div class="row justify-content-center" *ngIf="
-                        item.transactionTypeID === '613be86ae83f7824dce7cadb'
-                      ">
+                        item.transactionTypeID === '613be86ae83f7824dce7cadb'">
                       <h3 class="primary-color price">
                         <span>{{ item.price | number }} تومان</span>
                       </h3>
                     </div>
 
-                    <div class="row justify-content-center" *ngIf="item.transactionTypeID !== '613be86ae83f7824dce7cadb'">
+                    <div class="row justify-content-center"
+                      *ngIf="item.transactionTypeID !== '613be86ae83f7824dce7cadb'">
                       <h3 class="primary-color price">
-                        <span>رهن {{ item.priceMortgage | number }} - 
+                        <span>رهن {{ item.priceMortgage | number }} -
                           اجاره {{ item.priceRent | number }} </span>
                       </h3>
                     </div>
@@ -191,7 +240,14 @@
             </div>
           </div>
         </div>
-        <div class="row justify-content-center mt-3 site-card">
+        <div class="row justify-content-center mt-3 site-card" *ngIf="total === 0">
+          <div class="bg-pagination w-100">
+            <p class="text-center font-weight-bold py-3 mb-0">
+              نتیجه جستجو یافت نشد.
+            </p>
+          </div>
+        </div>
+        <div class="row justify-content-center mt-3 site-card" *ngIf="total !== 0">
           <div class="col-md-12 col-sm-12 align-self-center">
             <pagination-controls (pageChange)="page = $event" class="theme-pagination p-3 text-center"
               previousLabel="قبلی" nextLabel="بعدی"></pagination-controls>

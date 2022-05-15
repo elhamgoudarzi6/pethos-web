@@ -60,6 +60,8 @@ export class HomePropertiesComponent implements OnInit {
     });
   }
 
+ 
+
   addToFavorites(id: string) {
     if (this.localStorage.getCurrentUser()) {
       this.form = new FormGroup({

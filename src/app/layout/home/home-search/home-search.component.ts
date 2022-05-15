@@ -20,6 +20,9 @@ export class HomeSearchComponent implements OnInit {
   selectedTransactionType: any;
   selectedPropertyType: any;
   selectedSubPropertyType: any;
+  pethos: any[] = [];
+  agentLevel: any[] = [];
+  subPropertyTypes: any[] = [];
   priceFrom: any;
   priceTo: any;
   form: FormGroup;
@@ -28,11 +31,17 @@ export class HomeSearchComponent implements OnInit {
     private messageService: MessageService,
     private localStorage: LocalStorageService,
     private router: Router
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.getPropertyTypes();
     this.getTransactionTypes();
+  }
+
+  goProperty(transactionTypeID: any, propertyTypeID: any, subPropertyTypeID: any): any {
+    this.router.navigateByUrl(
+      '/properties/' + transactionTypeID + '/' + propertyTypeID + '/' + subPropertyTypeID
+    );
   }
 
   getPropertyTypes(): any {
@@ -49,11 +58,18 @@ export class HomeSearchComponent implements OnInit {
     });
   }
 
-  onTypeChange() {
-    this.propertySubTypes = this.propertyTypes.find(
-      (x) => x._id === this.selectedPropertyType._id
-    ).SubPropertyType;
+  onTypeChange(e: any) {
+    this.selectedPropertyType = e.value._id;
+    this.subPropertyTypes = e.value.SubPropertyType;
   }
+
+  onSubTypeChange(e: any) {
+    this.selectedSubPropertyType = e.value._id;
+  }
+  onTransactionTypeChange(e: any) {
+    this.selectedTransactionType = e.value._id;
+  }
+
 
   getTransactionTypes(): any {
     this.service.getAllTransactionTypes().subscribe((response) => {
@@ -69,9 +85,4 @@ export class HomeSearchComponent implements OnInit {
     });
   }
 
- 
-
-  redirectToDetail(id: any): void {
-    this.router.navigate(['/property/' + id]);
-  }
 }

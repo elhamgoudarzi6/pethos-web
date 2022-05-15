@@ -5,11 +5,18 @@
     <p class="desc">اخبار</p>
   </div>
 </div>
-
+<section class="breadcrumbs">
+  <div class="container">
+    <ol class="pb-0">
+      <li><a routerLink="/"><i class="pi pi-home"></i></a></li>
+      <li>اخبار</li>
+    </ol>
+  </div>
+</section>
 <div class="px-3 my-4">
   <div class="theme-container">
     <div class="row m-0 justify-content-center">
-      <div class="d-none d-md-block col-lg-3 col-md-3 site-card py-4">
+      <div class="d-md-block col-lg-3 col-md-3 site-card py-4">
         <div class="row justify-content-center pb-3">
           <div class="col-12 text-right">
             <p class="m-2 fw-500">جستجو</p>
@@ -33,7 +40,7 @@
         </div>
         <div class="col-12 text-right">
           <p class="m-2 fw-500">جدیدترین خبرها</p>
-        </div>
+        
         <div class="recent-blog" *ngFor="let i of latestNews">
           <div class="row">
             <div class="col-5">
@@ -60,6 +67,8 @@
             </ng-container>
           </div>
         </div>
+        </div>
+      
       </div>
       <div class="col-sm-12 col-lg-8 col-md-8 site-box mr-0 mr-md-4">
         <div class="row justify-content-center site-card d-flex flex-row" *ngIf="news.length === 0">

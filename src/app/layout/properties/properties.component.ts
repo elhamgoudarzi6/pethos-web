@@ -1,8 +1,8 @@
-import { FormGroup, FormControl } from '@angular/forms';
+import { FormGroup, FormControl, FormBuilder } from '@angular/forms';
 import { LocalStorageService } from 'src/app/auth/local-storage.service';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { LayoutService } from './../layout.service';
-import { MessageService } from 'primeng/api';
+import { MenuItem, MessageService } from 'primeng/api';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -12,18 +12,29 @@ import { Component, OnInit } from '@angular/core';
   providers: [MessageService],
 })
 export class PropertiesComponent implements OnInit {
+  public items: MenuItem[];
+  public home: MenuItem;
+  sortID: any;
   public displayMobileFilter: boolean = false;
+  public Items: any[] = [];
+  public pageOfItems: Array<any>;
   properties: any[] = [];
   page: number = 1;
   pageSize: number = 9;
   total: number = 0;
   transactionTypes: any[] = [];
-  selectedtransactionType: any;
+  selectedtransactionType: any = '0';
   propertyTypes: any[] = [];
-  selectedPropertyType: any;
+  selectedPropertyType: any = '0';
+  subPropertyTypes: any[] = [];
+  selectedSubPropertyType: any = '0';
   features: any[] = [];
   selectedFeatures: any[] = [];
   conditions: any[] = [];
+  baths: any[] = [];
+  rooms: any[] = [];
+  selectedbaths: any[] = [];
+  selectedrooms: any[] = [];
   selectedConditions: any[] = [];
   exchanges: any[] = [];
   selectedExchanges: any[] = [];
@@ -31,26 +42,44 @@ export class PropertiesComponent implements OnInit {
   priceFrom: number;
   priceTo: number;
   form: FormGroup;
+  currentTransactionType: any;
+  currentPropertyType: any;
+  currentSubPropertyType: any;
+  sortId: any;
+  areaTo: any;
+  areaFrom: any;
   constructor(
     private service: LayoutService,
     private messageService: MessageService,
     private localStorage: LocalStorageService,
+    private route: ActivatedRoute,
     private router: Router
-  ) {
-  }
+  ) { }
+  // this.items = [
+  //   { label: 'املاک', icon: 'pi pi-chevron-left' },
+  //   { label: 'املاک', icon: 'pi pi-chevron-left' },
+  //   { label: 'املاک', icon: 'pi pi-chevron-left', url: '#' }
+  // ];
+  // this.home = { icon: 'pi pi-home', routerLink: '/' };
 
   ngOnInit(): void {
-    this.service.getAllProperties().subscribe((response) => {
-      if (response.success === true) {
-        this.properties = response.data;
-        this.total = this.properties.length;
-      } else {
-        this.messageService.add({
-          severity: 'error',
-          summary: ' دریافت اطلاعات ',
-          detail: response.data,
-        });
-      }
+    this.baths = [
+      { title: 'یک', value: 1 },
+      { title: 'دو', value: 2 },
+      { title: 'سه', value: 3 },
+      { title: 'چهار', value: 3 },
+    ];
+    this.rooms = [
+      { title: 'یک', value: 1 },
+      { title: 'دو', value: 2 },
+      { title: 'سه', value: 3 },
+      { title: 'چهار', value: 3 },
+    ];
+    this.router.routeReuseStrategy.shouldReuseRoute = () => false;
+    this.route.paramMap.subscribe((params) => {
+      this.selectedtransactionType = params.get('transaction');
+      this.selectedPropertyType = params.get('type');
+      this.selectedSubPropertyType = params.get('subType');
     });
 
     this.getPropertyTypes();
@@ -58,8 +87,231 @@ export class PropertiesComponent implements OnInit {
     this.getConditions();
     this.getFeatures();
     this.getTransactionTypes();
+
+    let data;
+    if (this.selectedtransactionType === '0' && this.selectedPropertyType === '0'
+      && this.selectedSubPropertyType === '0') {
+      data = {
+        updatedAt: -1,
+      };
+    } else if (this.selectedtransactionType === '0' && this.selectedPropertyType !== '0' && this.selectedSubPropertyType === '0') {
+      data = {
+        propertyTypeID: this.selectedPropertyType,
+        updatedAt: -1,
+      };
+    } else if (this.selectedtransactionType === '0' && this.selectedPropertyType !== '0' && this.selectedSubPropertyType !== '0') {
+      data = {
+        propertyTypeID: this.selectedPropertyType,
+        subPropertyTypeID: this.selectedSubPropertyType,
+        updatedAt: -1,
+      };
+    } else if (this.selectedtransactionType !== '0' && this.selectedPropertyType !== '0' && this.selectedSubPropertyType !== '0') {
+      data = {
+        propertyTypeID: this.selectedPropertyType,
+        subPropertyTypeID: this.selectedSubPropertyType,
+        transactionTypeID: this.selectedtransactionType,
+        updatedAt: -1,
+      };
+    }
+    this.service.advanceSearchProperty(data).subscribe((response) => {
+      if (response.success === true) {
+        this.properties = response.data;
+        this.total = response.data.length;
+        this.Items = Array(this.total)
+          .fill(0)
+          .map((x, i) => ({ id: i }));
+        // this.pageOfItems = undefined;
+      }
+    });
   }
 
+  searchProperty(): any {
+    let data;
+    if (this.selectedtransactionType === '0' && this.selectedPropertyType === '0'
+      && this.selectedSubPropertyType === '0') {
+      data = {
+        updatedAt: this.sortID === 1 ? -1 : 1,
+        price: this.sortID === 2 ? 1 : -1,
+        priceMin: this.priceFrom,
+        priceMax: this.priceTo,
+        areaMin: this.areaFrom,
+        areaMax: this.areaTo,
+        bath: this.selectedbaths.length > 0 ? this.selectedbaths.map(function (x) { return (x.value) }) : [1, 2, 3, 4, 5],
+        bedroom: this.selectedrooms.length > 0 ? this.selectedrooms.map(function (x) { return (x.value) }) : [1, 2, 3, 4, 5],
+        condition: this.selectedConditions.length > 0 ? this.selectedConditions.map(function (x) { return (x.title) }) : this.conditions.map(function (x) { return (x.title) }),
+        exchange: this.selectedExchanges.length > 0 ? this.selectedExchanges.map(function (x) { return (x.title) }) : this.exchanges.map(function (x) { return (x.title) }),
+        features: this.selectedFeatures.length > 0 ? this.selectedFeatures.map(function (x) { return (x.title) }) : this.features.map(function (x) { return (x.title) }),
+      }
+    } else if (this.selectedtransactionType === '0' && this.selectedPropertyType !== '0' && this.selectedSubPropertyType === '0') {
+      data = {
+        propertyTypeID: this.selectedPropertyType,
+        updatedAt: this.sortID === 1 ? -1 : 1,
+        price: this.sortID === 2 ? 1 : -1,
+        priceMin: this.priceFrom,
+        priceMax: this.priceTo,
+        areaMin: this.areaFrom,
+        areaMax: this.areaTo,
+        bath: this.selectedbaths.length > 0 ? this.selectedbaths.map(function (x) { return (x.value) }) : [1, 2, 3, 4, 5],
+        bedroom: this.selectedrooms.length > 0 ? this.selectedrooms.map(function (x) { return (x.value) }) : [1, 2, 3, 4, 5],
+        condition: this.selectedConditions.length > 0 ? this.selectedConditions.map(function (x) { return (x.title) }) : this.conditions.map(function (x) { return (x.title) }),
+        exchange: this.selectedExchanges.length > 0 ? this.selectedExchanges.map(function (x) { return (x.title) }) : this.exchanges.map(function (x) { return (x.title) }),
+        features: this.selectedFeatures.length > 0 ? this.selectedFeatures.map(function (x) { return (x.title) }) : this.features.map(function (x) { return (x.title) }),
+      }
+    } else if (this.selectedtransactionType === '0' && this.selectedPropertyType !== '0' && this.selectedSubPropertyType !== '0') {
+      data = {
+        propertyTypeID: this.selectedPropertyType,
+        subPropertyTypeID: this.selectedSubPropertyType,
+        updatedAt: this.sortID === 1 ? -1 : 1,
+        price: this.sortID === 2 ? 1 : -1,
+        priceMin: this.priceFrom,
+        priceMax: this.priceTo,
+        areaMin: this.areaFrom,
+        areaMax: this.areaTo,
+        bath: this.selectedbaths.length > 0 ? this.selectedbaths.map(function (x) { return (x.value) }) : [1, 2, 3, 4, 5],
+        bedroom: this.selectedrooms.length > 0 ? this.selectedrooms.map(function (x) { return (x.value) }) : [1, 2, 3, 4, 5],
+        condition: this.selectedConditions.length > 0 ? this.selectedConditions.map(function (x) { return (x.title) }) : this.conditions.map(function (x) { return (x.title) }),
+        exchange: this.selectedExchanges.length > 0 ? this.selectedExchanges.map(function (x) { return (x.title) }) : this.exchanges.map(function (x) { return (x.title) }),
+        features: this.selectedFeatures.length > 0 ? this.selectedFeatures.map(function (x) { return (x.title) }) : this.features.map(function (x) { return (x.title) }),
+      }
+    } else if (this.selectedtransactionType !== '0' && this.selectedPropertyType !== '0' && this.selectedSubPropertyType !== '0') {
+      data = {
+        propertyTypeID: this.selectedPropertyType,
+        subPropertyTypeID: this.selectedSubPropertyType,
+        transactionTypeID: this.selectedtransactionType,
+        updatedAt: this.sortID === 1 ? -1 : 1,
+        price: this.sortID === 2 ? 1 : -1,
+        priceMin: this.priceFrom,
+        priceMax: this.priceTo,
+        areaMin: this.areaFrom,
+        areaMax: this.areaTo,
+        bath: this.selectedbaths.length > 0 ? this.selectedbaths.map(function (x) { return (x.value) }) : [1, 2, 3, 4, 5],
+        bedroom: this.selectedrooms.length > 0 ? this.selectedrooms.map(function (x) { return (x.value) }) : [1, 2, 3, 4, 5],
+        condition: this.selectedConditions.length > 0 ? this.selectedConditions.map(function (x) { return (x.title) }) : this.conditions.map(function (x) { return (x.title) }),
+        exchange: this.selectedExchanges.length > 0 ? this.selectedExchanges.map(function (x) { return (x.title) }) : this.exchanges.map(function (x) { return (x.title) }),
+        features: this.selectedFeatures.length > 0 ? this.selectedFeatures.map(function (x) { return (x.title) }) : this.features.map(function (x) { return (x.title) }),
+      }
+    }
+    console.log(data)
+    this.service.advanceSearchProperty(data).subscribe((response) => {
+      if (response.success === true) {
+        this.properties = response.data;
+        this.total = response.data.length;
+        this.Items = Array(this.total)
+          .fill(0)
+          .map((x, i) => ({ id: i }));
+        // this.pageOfItems = undefined;
+      }
+    });
+  }
+
+  onChangeSortID(e: any) {
+    this.sortID = e;
+    console.log(e)
+  }
+  onTypeChange(e: any) {
+    this.selectedPropertyType = e.value._id;
+    this.subPropertyTypes = e.value.SubPropertyType;
+  }
+  onSubTypeChange(e: any) {
+    this.selectedSubPropertyType = e.value._id;
+  }
+  onInputpriceFrom(e: any) {
+    this.priceFrom = e.value
+  }
+  onInputpriceTo(e: any) {
+    this.priceTo = e.value
+  }
+  onInputareaTo(e: any) {
+    this.areaTo = e.value
+  }
+  onInputareaFrom(e: any) {
+    this.areaFrom = e.value
+  }
+  onChangePage(pageOfItems: Array<any>) {
+    this.pageOfItems = pageOfItems;
+  }
+  onChangeBath(e: any) {
+    this.selectedbaths = e.value;
+    console.log(this.selectedbaths)
+  }
+  onChangeRoom(e: any) {
+    this.selectedrooms = e.value;
+  }
+  onChangeExchange(e: any) {
+    this.selectedExchanges = e.value;
+  }
+  onChangeFeature(e: any) {
+    this.selectedFeatures = e.value;
+  }
+  onChangeCondition(e: any) {
+    this.selectedConditions = e.value;
+  }
+  goProperty(transactionTypeID: any, propertyTypeID: any, subPropertyTypeID: any): any {
+    this.router.navigateByUrl(
+      '/properties/' + transactionTypeID + '/' + propertyTypeID + '/' + subPropertyTypeID
+    );
+  }
+
+  sort(sortId: any): void {
+    this.sortId = sortId;
+    let data;
+    switch (sortId) {
+      case 1:
+        if (this.selectedPropertyType === '0' && this.selectedSubPropertyType === '0') {
+          data = {
+            updatedAt: -1,
+          };
+        } else if (this.selectedPropertyType !== '0' && this.selectedSubPropertyType === '0') {
+          data = {
+            propertyTypeID: this.selectedPropertyType,
+            updatedAt: -1,
+          };
+        } else {
+          data = {
+            propertyTypeID: this.selectedPropertyType,
+            subPropertyTypeID: this.selectedSubPropertyType,
+            updatedAt: -1,
+          };
+        }
+        break;
+      case 2:
+        if (this.selectedPropertyType === '0' && this.selectedSubPropertyType === '0') {
+          data = {
+            price: 1,
+          };
+        } else if (this.selectedPropertyType !== '0' && this.selectedSubPropertyType === '0') {
+          data = {
+            propertyTypeID: this.selectedPropertyType,
+            price: 1,
+          };
+        } else {
+          data = {
+            propertyTypeID: this.selectedPropertyType,
+            subPropertyTypeID: this.selectedSubPropertyType,
+            price: 1,
+          };
+        }
+        break;
+      case 3:
+        if (this.selectedPropertyType === '0' && this.selectedSubPropertyType === '0') {
+          data = {
+            price: -1,
+          };
+        } else if (this.selectedPropertyType !== '0' && this.selectedSubPropertyType === '0') {
+          data = {
+            propertyTypeID: this.selectedPropertyType,
+            price: -1,
+          };
+        } else {
+          data = {
+            propertyTypeID: this.selectedPropertyType,
+            subPropertyTypeID: this.selectedSubPropertyType,
+            price: -1,
+          };
+        }
+        break;
+    }
+  }
 
   getPropertyTypes(): any {
     this.service
@@ -76,6 +328,7 @@ export class PropertiesComponent implements OnInit {
         }
       });
   }
+
 
   getExchanges(): any {
     this.service

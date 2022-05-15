@@ -26,34 +26,42 @@ export class MobileTopHeaderComponent implements OnInit {
     this.items = [
       {
         label: 'صفحه اصلی',
+        icon: 'pi pi-pw pi-home',
         command: (event) => this.router.navigate(['/']),
       },
       {
         label: 'املاک',
+        icon: 'pi pi-fw pi-list',
         command: (event) => this.router.navigate(['/properties']),
       },
       {
         label: 'مشاوران',
+        icon: 'pi pi-fw pi-users',
         command: (event) => this.router.navigate(['/agents']),
       },
       {
         label: 'اخبار',
+        icon: 'pi pi-fw pi-tags',
         command: (event) => this.router.navigate(['/news']),
       },
       {
         label: 'سوالات متداول',
+        icon: 'pi pi-fw pi-question-circle',
         command: (event) => this.router.navigate(['/faqs']),
       },
       {
         label: 'شرایط و ضوابط',
+        icon: 'pi pi-exclamation-triangle',
         command: (event) => this.router.navigate(['/terms']),
       },
       {
         label: 'درباره ما',
+        icon: 'pi pi-fw pi-info-circle',
         command: (event) => this.router.navigate(['/about']),
       },
       {
         label: 'تماس با ما',
+        icon: 'pi pi-fw pi-phone',
         command: (event) => this.router.navigate(['/contact']),
       },
     ];

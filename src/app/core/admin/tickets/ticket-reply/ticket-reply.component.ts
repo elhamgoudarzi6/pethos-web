@@ -34,18 +34,17 @@ export class TicketReplyComponent implements OnInit {
       message: new FormControl(null),
     });
   }
-
+  
   submitForm(): void {
     let data = {
       detail: {
-        message:this.form.get('message').value,
+        message:this.form.controls.message.value,
         from:'agent',
         to:'user',
         date: new Date().toLocaleDateString('fa-IR'),
         time: new Date().toLocaleTimeString('fa-IR'),
       }
     }
-    console.log(data)
     this.service.replyTicket(this.localStorage.userToken,
       this.config.data.ticketId, data).subscribe((response) => {
         if (response.success === true) {

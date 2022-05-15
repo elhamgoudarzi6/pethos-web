@@ -12,6 +12,14 @@
   box-sizing: border-box;
 
 }
+.text-title{
+  font-size: 15px;
+
+}
+.text-muted{
+  font-family: IRANSans_Light !important;
+}
+
 
 :host::ng-deep .owl-carousel .owl-item {
   margin-bottom: 20px;
@@ -32,6 +40,7 @@
 :host::ng-deep .owl-theme .owl-nav [class*=owl-] {
   color: #e0e0e0 !important;
   font-size: 8px;
+
   display: inline-block;
   cursor: pointer;
   border-radius: 50%;

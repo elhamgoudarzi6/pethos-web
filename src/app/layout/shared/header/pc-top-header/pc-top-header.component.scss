@@ -8,14 +8,19 @@
   box-sizing: border-box;
   width: 100%;
   z-index: 4;
-}
 
+}
+.top-bar-item-text{
+  font-family: IRANSans_Light!important;
+
+}
 .top-toolbar {
   position: relative;
   height: 36px;
   font-size: 12px;
   padding: 0 16px;
   z-index: 99;
+
 }
 #top-toolbar .mdc-button {
   color: inherit;
@@ -35,6 +40,7 @@
 .dropdown-item {
   text-align: right !important;
   font-size: 12px;
+
 }
 
 .account-btn{
