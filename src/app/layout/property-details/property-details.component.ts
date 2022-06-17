@@ -3,6 +3,8 @@ import { LayoutService } from './../layout.service';
 import { FormGroup, FormControl, FormBuilder } from '@angular/forms';
 import { MessageService } from 'primeng/api';
 import { LocalStorageService } from './../../auth/local-storage.service';
+import * as mapboxgl from 'mapbox-gl';
+import * as MapboxGeocoder from '@mapbox/mapbox-gl-geocoder';
 import {
   ChangeDetectorRef,
   Component,
@@ -22,6 +24,7 @@ import { Galleria } from 'primeng/galleria';
 export class PropertyDetailsComponent implements OnInit, OnDestroy {
   @ViewChild('galleria') galleria!: Galleria;
   form: FormGroup;
+  agentRating: any;
   fullname: any;
   email: any;
   mobile: any;
@@ -47,6 +50,8 @@ export class PropertyDetailsComponent implements OnInit, OnDestroy {
   ];
   id: any;
   property: any;
+  map: mapboxgl.Map;
+  geocoder: MapboxGeocoder;
   constructor(
     private cd: ChangeDetectorRef,
     private service: LayoutService,
@@ -61,6 +66,14 @@ export class PropertyDetailsComponent implements OnInit, OnDestroy {
     this.route.paramMap.subscribe((params) => (this.id = params.get('id')));
     this.getProperty();
     this.bindDocumentListeners();
+    (mapboxgl as any).accessToken =
+    'pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4M29iazA2Z2gycXA4N2pmbDZmangifQ.-g_vE53SD2WrJ6tFX7QHmA';
+  this.map = new mapboxgl.Map({
+    container: 'pethos-mapbox',
+    style: 'mapbox://styles/mapbox/streets-v9',
+    center: [48.2890292, 33.4910974],
+    zoom: 9,
+  });
   }
 
   getProperty() {
@@ -82,9 +95,17 @@ export class PropertyDetailsComponent implements OnInit, OnDestroy {
             });
           });
         }
+        this.service.getAgentRating(this.property.Agent[0]._id).subscribe((response) => {
+          if (response.success === true) {
+            let x = response.data;
+            this.agentRating=Math.round(x);
+            //this.agentRating=x.toFixed(2)
+          }
+        });
       }
     });
   }
+  
 
   toggleFullScreen() {
     if (this.fullscreen) {
@@ -205,15 +226,14 @@ export class PropertyDetailsComponent implements OnInit, OnDestroy {
     }
   }
 
-  addToFavorites() {
+  addToFavorites(id: any) {
     if (this.localStorage.getCurrentUser()) {
-      this.form = new FormGroup({
-        userID: new FormControl(this.localStorage.userID),
-        propertyID: new FormControl(this.id),
-      });
-
+      let data = {
+        userID: this.localStorage.userID,
+        propertyID: id,
+      }
       this.service
-        .addFavorite(this.localStorage.userToken, this.form.value)
+        .addFavorite(this.localStorage.userToken, data)
         .subscribe((response) => {
           if (response.success === true) {
             this.messageService.add({

@@ -21,7 +21,11 @@ export class AgentEditComponent implements OnInit {
   agentLevel: any[] = [];
   selectedLevel: any;
   pethos: any[] = [];
+  subPethos: any[] = [];
+  subSubPethos: any[] = [];
   selectedPethos: any;
+  selectedSubPethos: any;
+  selectedSubSubPethos: any;
   min: any;
   max: any;
 
@@ -66,8 +70,14 @@ export class AgentEditComponent implements OnInit {
       .subscribe((response) => {
         if (response.success === true) {
           this.pethos = response.data;
-          this.selectedPethos = this.agent.Pethos[0];
+          this.selectedPethos = this.pethos.filter(x => x._id === this.agent.pethosID)[0];
+          this.subPethos = this.selectedPethos.SubPethos;
+          this.selectedSubPethos = this.subPethos.filter(x => x._id === this.agent.subPethosID)[0];
+          this.subSubPethos = this.selectedSubPethos.SubSubPethos;
+          this.selectedSubSubPethos = this.subSubPethos.filter(x => x._id === this.agent.subSubPethosID)[0];
           this.form.controls.pethosID.setValue(this.selectedPethos._id);
+          this.form.controls.subPethosID.setValue(this.selectedSubPethos._id);
+          this.form.controls.subSubPethosID.setValue(this.selectedSubSubPethos._id);
         } else {
           this.messageService.add({
             severity: 'error',
@@ -119,6 +129,12 @@ export class AgentEditComponent implements OnInit {
   }
   onPethosChange(e: any) {
     this.form.controls.pethosID.setValue(e.value._id);
+  }
+  onSubPethosChange(e: any) {
+    this.form.controls.subpethosID.setValue(e.value._id);
+  }
+  onSubSubPethosChange(e: any) {
+    this.form.controls.subSubpethosID.setValue(e.value._id);
   }
 
   onLevelChange(e: any) {

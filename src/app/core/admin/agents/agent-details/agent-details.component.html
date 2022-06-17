@@ -2,18 +2,35 @@
 <p-confirmDialog [style]="{ width: '50vw' }" [baseZIndex]="10000"></p-confirmDialog>
 <div class="container-fluid mt-4 text-right">
   <div class="row pnl-content">
+    <p *ngIf="agentRating<3" class="text-danger">امتیاز: {{agentRating | number : '1.2-2'}}</p>
+    <p *ngIf="agentRating===3" class="text-warning">امتیاز: {{agentRating | number : '1.2-2'}}</p>
+    <p *ngIf="agentRating>3" class="text-success">امتیاز: {{agentRating | number : '1.2-2'}}</p>
     <div class="col-12 no-gutters p-0 m-0">
       <div class="row">
+
         <div class="col-lg-4 col-sm-12 mb-3">
           <label class="panel-form-label">مجموعه</label>
           <p-dropdown [options]="pethos" optionLabel="title" [(ngModel)]="selectedLevel" [disabled]="true">
           </p-dropdown>
         </div>
         <div class="col-lg-4 col-sm-12 mb-3">
+          <label class="panel-form-label">مجموعه</label>
+          <p-dropdown [options]="subPethos" optionLabel="title" [(ngModel)]="selectedLevel" [disabled]="true">
+          </p-dropdown>
+        </div>
+        <div class="col-lg-4 col-sm-12 mb-3">
+          <label class="panel-form-label">مجموعه</label>
+          <p-dropdown [options]="subSubPethos" optionLabel="title" [(ngModel)]="selectedLevel" [disabled]="true">
+          </p-dropdown>
+        </div>
+      </div>
+      <div class="row">
+
+        <div class="col-lg-6 col-sm-12 mb-3">
           <label class="panel-form-label">شماره موبایل</label>
           <input [(ngModel)]="agent.mobile" name="mobile" pInputText placeholder="شماره موبایل" disabled="disabled" />
         </div>
-        <div class="col-lg-4 col-sm-12 mb-3">
+        <div class="col-lg-6 col-sm-12 mb-3">
           <label class="panel-form-label">نام و نام خانوادگی</label>
           <input name="fullName" type="text" pInputText [(ngModel)]="agent.fullName" disabled="disabled" />
         </div>

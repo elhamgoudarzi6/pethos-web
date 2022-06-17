@@ -20,6 +20,11 @@ export class AgentService {
     return this.http.post(this.baseUrl + 'getToken/' + id, body);
   }
 
+  getAgentRating(token: string, id: any): any {
+    const params = new HttpParams().set('token', token);
+    return this.http.get(this.baseUrl + 'getAgentRating/' + id, { params });
+  }
+  
   //#region Files
   uploadFile(data: any): any {
     return this.http.post(this.baseUrl + 'upload', data);

@@ -100,7 +100,6 @@ export class PropertyAddComponent implements OnInit {
       });
     });
     this.map.addControl(geocoder);
-
     this.map.addControl(new mapboxgl.FullscreenControl());
     this.map.addControl(new mapboxgl.NavigationControl());
   }

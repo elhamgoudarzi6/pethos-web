@@ -20,8 +20,14 @@ export class AgentDetailsComponent implements OnInit {
   selectedLevel: any;
   min:any;
   max:any;
+  agentRating:any;
   agentLevel: any[] = [];
   pethos: any[] = [];
+  subPethos: any[] = [];
+  subSubPethos: any[] = [];
+  selectedPethos: any;
+  selectedSubPethos: any;
+  selectedSubSubPethos: any;
   constructor(
     private messageService: MessageService,
     private localStorage: LocalStorageService,
@@ -38,6 +44,25 @@ export class AgentDetailsComponent implements OnInit {
     this.getPropertyTypes();
     this.getAgentLevel();
     this.getPethos();
+    this.getAgentRating();
+
+  }
+
+  getAgentRating(): any {
+    this.service
+      .getAgentRating(this.localStorage.userToken,this.config.data.agent._id)
+      .subscribe((response) => {
+        if (response.success === true) {
+          this.agentRating = response.data;
+          console.log(this.agentRating)
+        } else {
+          this.messageService.add({
+            severity: 'error',
+            summary: ' دریافت اطلاعات ',
+            detail: response.data,
+          });
+        }
+      });
   }
   getPethos(): any {
     this.service
@@ -45,7 +70,11 @@ export class AgentDetailsComponent implements OnInit {
       .subscribe((response) => {
         if (response.success === true) {
           this.pethos = response.data;
-          // this.form.controls.pethosID.setValue(this.pethos[0]);
+          this.selectedPethos = this.pethos.filter(x => x._id === this.agent.pethosID)[0];
+          this.subPethos = this.selectedPethos.SubPethos;
+          this.selectedSubPethos = this.subPethos.filter(x => x._id === this.agent.subPethosID)[0];
+          this.subSubPethos = this.selectedSubPethos.SubSubPethos;
+          this.selectedSubSubPethos = this.subSubPethos.filter(x => x._id === this.agent.subSubPethosID)[0];
         } else {
           this.messageService.add({
             severity: 'error',
@@ -91,6 +120,7 @@ export class AgentDetailsComponent implements OnInit {
           });
         }
       });
+
   }
 
   deleteAgent(): void {

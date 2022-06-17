@@ -11,9 +11,11 @@
             </div>
             <div class="p-3 text-right">
               <h2 class="fw-600">{{ property.Agent[0].fullName }}</h2>
-              <span>{{ property.Agent[0].Pethos[0].title}}</span><br />
+              <p-rating [ngModel]="agentRating | number : '1.2-2'" readonly="true" stars="5" [cancel]="false"></p-rating>
+              <span>{{ property.Agent[0].Pethos[0].title}}/{{ property.Agent[0].Pethos[0].SubPethos[0].title}}/{{ property.Agent[0].Pethos[0].SubPethos[0].SubSubPethos[0].title}}</span><br />
               <span>سطح: {{ property.Agent[0].AgentLevel[0].level}}</span><br />
-              <span>تخصص: {{ property.Agent[0].SubPropertyType[0].title}}</span>
+              <span>تخصص: {{ property.Agent[0].SubPropertyType[0].title}}</span><br />
+              <span>امتیاز:{{ agentRating}}</span>
               <p class="mt-3 text-muted text-justify fw-500">
                 {{ property.Agent[0].info }}
               </p>
@@ -52,7 +54,19 @@
                   }} / {{ property.TransactionType[0].title }}</h2>
               </div>
               <div class="col align-self-center text-left d-flex flex-row-reverse">
-                <i class="material-icons mat-icon-sm">favorite_border</i>
+                <button class="add-to-favorite-button" title="افزودن به علاقه مندی ها"
+                (click)="addToFavorites(property._id)">
+                <svg width="18" height="18" version="1.1" xmlns="http://www.w3.org/2000/svg"
+                  xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 1000 1000"
+                  enable-background="new 0 0 1000 1000" xml:space="preserve">
+                  <metadata> Svg Vector Icons : http://www.onlinewebfonts.com/icon </metadata>
+                  <g>
+                    <g transform="translate(0.000000,426.000000) scale(0.100000,-0.100000)">
+                      <path
+                        d="M2244.2,3353.9C1208.7,3167,393.2,2388.4,161.5,1368.5C-37,486.8,245.2-492.3,1004.3-1553.1C1744-2586.7,2976.1-3725.4,4171.2-4478.6c348.4-218,657.9-369.8,792.2-383.5c124.6-11.7,276.4,44.8,589.8,219.9C6579-4064,7853.9-2977.9,8663.6-1991.1C9516.2-953.6,9948.3,76.1,9895.7,940.3c-74,1220.4-955.7,2207.3-2160.6,2415.6c-219.9,37-611.2,37-844.7,0c-747.4-120.7-1469.6-619-1818-1255.5c-35-64.2-70.1-116.8-75.9-116.8c-5.8,0-21.4,23.4-35,54.5c-116.8,255-531.4,712.4-819.5,903.2c-325.1,214.1-681.3,356.2-1031.6,414.6C2880.7,3392.8,2454.4,3390.9,2244.2,3353.9z" />
+                    </g>
+                  </g>
+                </svg> </button>
               </div>
             </div>
             <div class="justify-content-right row m-2 d-flex flex-row px-2 m-0">
@@ -177,6 +191,17 @@
               </div>
             </div>
           </div>
+
+          <div class="col-xs-12 w-100 mt-4">
+            <div class="site-card row m-0 d-flex flex-row py-3 px-2">
+              <div class="col-12">
+                <h2 class="text-right fw-500 mb-2">لوکیشن</h2>
+              </div>
+              <div class="pethos-mapbox" id="pethos-mapbox"></div>
+            </div>
+          </div>
+    
+
           <div class="col-xs-12 site-card w-100 mt-4 p-3" *ngIf="vrFiles.length > 0">
             <h2 class="text-right fw-500 mb-2">تصاویر داخلی</h2>
             <p-galleria #galleria [value]="vrFiles" [responsiveOptions]="responsiveOptions" [numVisible]="5"

@@ -39,6 +39,7 @@ export class FavoritesComponent implements OnInit {
         });
       }
     }
+    
   }
 
   getFavorites(): any {
@@ -47,6 +48,7 @@ export class FavoritesComponent implements OnInit {
       .subscribe((response) => {
         if (response.success === true) {
           this.favorites = response.data;
+          console.log(this.favorites)
           this.total = this.favorites.length;
         } else {
           this.messageService.add({

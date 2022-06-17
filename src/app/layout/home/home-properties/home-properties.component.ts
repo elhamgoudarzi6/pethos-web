@@ -60,17 +60,16 @@ export class HomePropertiesComponent implements OnInit {
     });
   }
 
- 
-
-  addToFavorites(id: string) {
+  addToFavorites(id: any) {
+    console.log(id)
     if (this.localStorage.getCurrentUser()) {
-      this.form = new FormGroup({
-        userID: new FormControl(this.localStorage.userID),
-        propertyID: new FormControl(id),
-      });
-
+      let data = {
+        userID: this.localStorage.userID,
+        propertyID: id,
+      }
+      console.log(data)
       this.service
-        .addFavorite(this.localStorage.userToken, this.form.value)
+        .addFavorite(this.localStorage.userToken, data)
         .subscribe((response) => {
           if (response.success === true) {
             this.messageService.add({

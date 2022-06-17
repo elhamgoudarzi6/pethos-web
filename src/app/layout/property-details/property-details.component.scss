@@ -63,3 +63,21 @@
     margin-top: 25px;
   }
 }
+ button.add-to-favorite-button {
+  height: 26px;
+  min-width: 26px;
+  width: 26px;
+  line-height: 26px;
+  border: none;
+  border-radius: 4px;
+  padding: 0;
+  background:transparent;
+}
+ button svg {
+  fill: #999;
+  transition: 0.2s;
+}
+
+ button svg :hover{
+  fill:red;
+}

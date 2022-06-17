@@ -43,6 +43,7 @@ export class ProfileComponent implements OnInit {
       { type: 'pattern', message: 'لطفا شماره موبایل معتبر وارد کنید.' },
     ],
   };
+  agentRating: any;
 
 
   constructor(
@@ -67,6 +68,14 @@ export class ProfileComponent implements OnInit {
       .subscribe((response) => {
         if (response.success === true) {
           this.countPropertyForAgent = response.data;
+        }
+      });
+
+    this.service.getAgentRating(this.localStorage.userToken, this.localStorage.userID)
+      .subscribe((response) => {
+        if (response.success === true) {
+          this.agentRating = response.data;
+          console.log(this.agentRating)
         }
       });
   }
@@ -119,6 +128,8 @@ export class ProfileComponent implements OnInit {
       ),
     });
   }
+
+
 
   updateUser() {
     this.service

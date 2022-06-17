@@ -3,8 +3,8 @@
 <div class="container-fluid mt-4 text-right">
   <div class="row pnl-content">
     <form [formGroup]="form" (ngSubmit)="submitForm()" class="w-100">
-     <p class="text-danger"> *نام کاربری و رمز عبور نماینده بطور پیش فرض شماره موبایل می باشد نماینده در پنل خود می تواند  تغییر دهد</p> 
-
+      <p class="text-danger"> *نام کاربری و رمز عبور نماینده بطور پیش فرض شماره موبایل می باشد نماینده در پنل خود می
+        تواند تغییر دهد</p>
       <div class="row">
         <div class="col-lg-4 col-sm-12 mb-3">
           <label class="panel-form-label">مجموعه</label>
@@ -13,7 +13,23 @@
             placeholder="-- انتخاب کنید --">
           </p-dropdown>
         </div>
-        <div class="col-lg-4 mb-3">
+        <div class="col-lg-4 col-sm-12 mb-3">
+          <label class="panel-form-label">مجموعه</label>
+          <p-dropdown appendTo="body" emptyFilterMessage="نتیجه ای یافت نشد" emptyMessage="نتیجه ای یافت نشد"
+            [options]="subPethos" optionLabel="title" (onChange)="onSubPethosChange($event)" [filter]="true"
+            filterBy="title" placeholder="-- انتخاب کنید --">
+          </p-dropdown>
+        </div>
+        <div class="col-lg-4 col-sm-12 mb-3">
+          <label class="panel-form-label">مجموعه</label>
+          <p-dropdown appendTo="body" emptyFilterMessage="نتیجه ای یافت نشد" emptyMessage="نتیجه ای یافت نشد"
+            [options]="subSubPethos" optionLabel="title" (onChange)="onSubSubPethosChange($event)" [filter]="true"
+            filterBy="title" placeholder="-- انتخاب کنید --">
+          </p-dropdown>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-lg-6 mb-3">
           <label class="panel-form-label">شماره موبایل</label>
           <input pKeyFilter="int" formControlName="mobile" maxlength="11" minlength="11" name="mobile" pInputText
             placeholder="شماره موبایل" required />
@@ -27,10 +43,9 @@
             </li>
           </ul>
         </div>
-        <div class="col-lg-4 col-sm-12 mb-3">
+        <div class="col-lg-6 col-sm-12 mb-3">
           <label class="panel-form-label">نام و نام خانوادگی</label>
           <input name="fullName" type="text" pInputText placeholder="نام و نام خانوادگی" formControlName="fullName" />
-
           <ul class="mt-1 text-right list-inline" *ngFor="let error of errorMessages.fullName">
             <li class="font-small text-danger font-weight-bold list-inline-item" *ngIf="
                 form.get('fullName').hasError(error.type) &&

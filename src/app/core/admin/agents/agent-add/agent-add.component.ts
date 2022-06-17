@@ -15,6 +15,8 @@ export class AgentAddComponent implements OnInit {
   form: FormGroup;
   propertyTypes: any[] = [];
   pethos: any[] = [];
+  subPethos: any[] = [];
+  subSubPethos: any[] = [];
   agentLevel: any[] = [];
   subPropertyTypes: any[] = [];
   min: any;
@@ -57,7 +59,6 @@ export class AgentAddComponent implements OnInit {
       .subscribe((response) => {
         if (response.success === true) {
           this.pethos = response.data;
-         // this.form.controls.pethosID.setValue(this.pethos[0]);
         } else {
           this.messageService.add({
             severity: 'error',
@@ -101,7 +102,18 @@ export class AgentAddComponent implements OnInit {
 
   onPethosChange(e: any) {
     this.form.controls.pethosID.setValue(e.value._id);
+    this.subPethos = e.value.SubPethos;
   }
+
+  onSubPethosChange(e: any) {
+    this.form.controls.subPethosID.setValue(e.value._id);
+    this.subSubPethos = e.value.SubSubPethos;
+  }
+
+  onSubSubPethosChange(e: any) {
+    this.form.controls.subSubPethosID.setValue(e.value._id);
+  }
+
   onLevelChange(e: any) {
     this.form.controls.levelID.setValue(e.value._id);
     this.min = e.value.min;
@@ -120,7 +132,11 @@ export class AgentAddComponent implements OnInit {
   createForm() {
     this.form = new FormGroup({
       pethosID: new FormControl(null,
-         Validators.compose([Validators.required])),
+        Validators.compose([Validators.required])),
+      subPethosID: new FormControl(null,
+        Validators.compose([Validators.required])),
+      subSubPethosID: new FormControl(null,
+        Validators.compose([Validators.required])),
       mobile: new FormControl(
         null,
         Validators.compose([

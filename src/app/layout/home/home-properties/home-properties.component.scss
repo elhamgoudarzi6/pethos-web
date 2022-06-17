@@ -106,6 +106,7 @@ property-item.grid-item.full-width-page.column-4 .address, .property-item.grid-i
   font-size: 12px;
 }
 
+
 .property-item .address, .property-item .date {
   margin-top: 8px;
   display: flex;
@@ -149,9 +150,15 @@ property-item.grid-item.full-width-page.column-4 .address, .property-item.grid-i
   border: none;
   border-radius: 4px;
   padding: 0;
-  background: rgba(255, 252, 252, 0.6);
+  background:transparent;
+}
+.property-item .control-icons button svg {
+  fill: #fff;
   transition: 0.2s;
-  color: rgba(0, 0, 0, 0.87);
+}
+
+.property-item .control-icons button svg :hover{
+  fill:red;
 }
 
 :host::ng-deep .p-dropdown{

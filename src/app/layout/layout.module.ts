@@ -13,6 +13,7 @@ import { CommonModule } from '@angular/common';
 import {BreadcrumbModule} from 'primeng/breadcrumb';
 import {MenuItem} from 'primeng/api';
 import { LayoutRoutingModule } from './layout-routing.module';
+import {RatingModule} from 'primeng/rating';
 
 import { CarouselModule } from 'ngx-owl-carousel-o';
 import { HomeBannerComponent } from './home/home-banner/home-banner.component';
@@ -80,6 +81,7 @@ import { FavoritesComponent } from './favorites/favorites.component';
     AngularMaterialListModule,
     NgxPaginationModule,
     BreadcrumbModule,
+    RatingModule
   ],
   schemas: [ CUSTOM_ELEMENTS_SCHEMA ]
 })

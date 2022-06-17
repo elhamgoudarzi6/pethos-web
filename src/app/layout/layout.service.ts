@@ -1,4 +1,4 @@
-import { HttpClient, HttpHeaders,HttpParams } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
 @Injectable({
@@ -6,16 +6,25 @@ import { Injectable } from '@angular/core';
 })
 export class LayoutService {
   baseUrl = 'https://api.pethos.app/api/v1/user/';
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
 
   authUser(data: any): any {
     return this.http.post(this.baseUrl + 'authUser', data);
   }
 
+  getAgentRating(id: any): any {
+    return this.http.get(this.baseUrl + 'getAgentRating/' + id);
+  }
+
+  registerAgentRating(token: string, data: any): any {
+    const params = new HttpParams().set('token', token);
+    return this.http.post(this.baseUrl + 'registerAgentRating', data, { params });
+  }
+
   //#region Favorites
   getAllFavorites(token: string, id: string): any {
     const params = new HttpParams().set('token', token);
-    return this.http.get(this.baseUrl + 'getAllFavorite/' + id,  { params });
+    return this.http.get(this.baseUrl + 'getAllFavorite/' + id, { params });
   }
   addFavorite(token: string, data: any): any {
     const params = new HttpParams().set('token', token);
@@ -37,7 +46,7 @@ export class LayoutService {
     );
   }
 
- 
+
   //#endregion
 
   //#region Property

@@ -55,6 +55,11 @@ export class UserService {
   }
   //#endregion
 
+  getAgentRating(token: string, id: any): any {
+    const params = new HttpParams().set('token', token);
+    return this.http.get(this.baseUrl + 'getAgentRating/' + id, { params });
+  }
+  
   //#region Ticket
   getAllTicketsByUserId(token: string, id: string): any {
     const params = new HttpParams().set('token', token);

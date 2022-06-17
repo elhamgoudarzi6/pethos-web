@@ -189,6 +189,11 @@ export class AdminService {
   }
   //#endregion
 
+  getAgentRating(token: string, id: any): any {
+    const params = new HttpParams().set('token', token);
+    return this.http.get(this.baseUrl + 'getAgentRating/' + id, { params });
+  }
+
   //#region Discounts
   getAllDiscounts(token: string): any {
     const params = new HttpParams().set('token', token);
@@ -219,6 +224,26 @@ export class AdminService {
   registerPethos(token: string, data: any): any {
     const params = new HttpParams().set('token', token);
     return this.http.post(this.baseUrl + 'registerPethos',data, { params });
+  }
+
+  
+  getAllSubPethos(token: string, id: any): any {
+    const params = new HttpParams().set('token', token);
+    return this.http.get(this.baseUrl + 'getAllSubPethos/' + id, { params });
+  }
+  registerSubPethos(token: string, data: any): any {
+    const params = new HttpParams().set('token', token);
+    return this.http.post(this.baseUrl + 'registerSubPethos',data, { params });
+  }
+
+    
+  getAllSubSubPethos(token: string, id: any): any {
+    const params = new HttpParams().set('token', token);
+    return this.http.get(this.baseUrl + 'getAllSubSubPethos/' + id, { params });
+  }
+  registerSubSubPethos(token: string, data: any): any {
+    const params = new HttpParams().set('token', token);
+    return this.http.post(this.baseUrl + 'registerSubSubPethos',data, { params });
   }
 
   //#region Agent

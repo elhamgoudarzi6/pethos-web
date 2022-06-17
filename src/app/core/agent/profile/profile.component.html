@@ -49,11 +49,12 @@
           </li>
           <mat-divider></mat-divider>
           <li class="list-group-item border-0 text-right">
-            <b>امتیاز</b> <a class="float-left text-muted">{{ agent.AgentLevel[0].level }}</a>
+            <b>تعداد املاک ثبتی</b> <a class="float-left text-muted">{{countPropertyForAgent}}</a>
           </li>
+        
           <mat-divider></mat-divider>
           <li class="list-group-item border-0 text-right">
-            <b>تعداد املاک ثبتی</b> <a class="float-left text-muted">{{countPropertyForAgent}}</a>
+            <b>امتیاز</b> <a class="float-left text-muted">{{agentRating | number : '1.2-2'}}</a>
           </li>
         </ul>
       </div>

@@ -2,8 +2,7 @@ import { Router } from '@angular/router';
 import { LocalStorageService } from 'src/app/auth/local-storage.service';
 import { MessageService } from 'primeng/api';
 import { LayoutService } from './../../layout.service';
-import { FormGroup, FormControl } from '@angular/forms';
-import { OwlOptions } from 'ngx-owl-carousel-o';
+import { FormGroup } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -29,7 +28,6 @@ export class HomeSearchComponent implements OnInit {
   constructor(
     private service: LayoutService,
     private messageService: MessageService,
-    private localStorage: LocalStorageService,
     private router: Router
   ) { }
 
@@ -69,7 +67,6 @@ export class HomeSearchComponent implements OnInit {
   onTransactionTypeChange(e: any) {
     this.selectedTransactionType = e.value._id;
   }
-
 
   getTransactionTypes(): any {
     this.service.getAllTransactionTypes().subscribe((response) => {
