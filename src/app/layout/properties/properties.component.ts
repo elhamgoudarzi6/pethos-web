@@ -1,4 +1,4 @@
-import { FormGroup, FormControl, FormBuilder } from '@angular/forms';
+import { FormGroup, FormControl, FormBuilder, FormControlName } from '@angular/forms';
 import { LocalStorageService } from 'src/app/auth/local-storage.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { LayoutService } from './../layout.service';
@@ -48,6 +48,7 @@ export class PropertiesComponent implements OnInit {
   sortId: any;
   areaTo: any;
   areaFrom: any;
+  keywords: string[]=[];  
   constructor(
     private service: LayoutService,
     private messageService: MessageService,
@@ -55,12 +56,6 @@ export class PropertiesComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router
   ) { }
-  // this.items = [
-  //   { label: 'املاک', icon: 'pi pi-chevron-left' },
-  //   { label: 'املاک', icon: 'pi pi-chevron-left' },
-  //   { label: 'املاک', icon: 'pi pi-chevron-left', url: '#' }
-  // ];
-  // this.home = { icon: 'pi pi-home', routerLink: '/' };
 
   ngOnInit(): void {
     this.baths = [
@@ -126,10 +121,14 @@ export class PropertiesComponent implements OnInit {
   }
 
   searchProperty(): any {
+   console.log(this.keywords)
+    var keywords =this.keywords,
+     regex = keywords.join("|");
     let data;
     if (this.selectedtransactionType === '0' && this.selectedPropertyType === '0'
       && this.selectedSubPropertyType === '0') {
       data = {
+        keywords:regex,
         updatedAt: this.sortID === 1 ? -1 : 1,
         price: this.sortID === 2 ? 1 : -1,
         priceMin: this.priceFrom,
@@ -144,6 +143,7 @@ export class PropertiesComponent implements OnInit {
       }
     } else if (this.selectedtransactionType === '0' && this.selectedPropertyType !== '0' && this.selectedSubPropertyType === '0') {
       data = {
+        keywords:regex,
         propertyTypeID: this.selectedPropertyType,
         updatedAt: this.sortID === 1 ? -1 : 1,
         price: this.sortID === 2 ? 1 : -1,
@@ -159,6 +159,7 @@ export class PropertiesComponent implements OnInit {
       }
     } else if (this.selectedtransactionType === '0' && this.selectedPropertyType !== '0' && this.selectedSubPropertyType !== '0') {
       data = {
+        keywords:regex,
         propertyTypeID: this.selectedPropertyType,
         subPropertyTypeID: this.selectedSubPropertyType,
         updatedAt: this.sortID === 1 ? -1 : 1,
@@ -175,6 +176,7 @@ export class PropertiesComponent implements OnInit {
       }
     } else if (this.selectedtransactionType !== '0' && this.selectedPropertyType !== '0' && this.selectedSubPropertyType !== '0') {
       data = {
+        keywords:regex,
         propertyTypeID: this.selectedPropertyType,
         subPropertyTypeID: this.selectedSubPropertyType,
         transactionTypeID: this.selectedtransactionType,
@@ -191,7 +193,6 @@ export class PropertiesComponent implements OnInit {
         features: this.selectedFeatures.length > 0 ? this.selectedFeatures.map(function (x) { return (x.title) }) : this.features.map(function (x) { return (x.title) }),
       }
     }
-    console.log(data)
     this.service.advanceSearchProperty(data).subscribe((response) => {
       if (response.success === true) {
         this.properties = response.data;
@@ -206,7 +207,40 @@ export class PropertiesComponent implements OnInit {
 
   onChangeSortID(e: any) {
     this.sortID = e;
+    let data;
+    data = {
+      propertyTypeID: this.selectedPropertyType,
+      subPropertyTypeID: this.selectedSubPropertyType,
+      transactionTypeID: this.selectedtransactionType,
+      updatedAt: this.sortID === 1 ? -1 : 1,
+      price: this.sortID === 2 ? 1 : -1,
+      priceMin: this.priceFrom,
+      priceMax: this.priceTo,
+      areaMin: this.areaFrom,
+      areaMax: this.areaTo,
+      bath: this.selectedbaths.length > 0 ? this.selectedbaths.map(function (x) { return (x.value) }) : [1, 2, 3, 4, 5],
+      bedroom: this.selectedrooms.length > 0 ? this.selectedrooms.map(function (x) { return (x.value) }) : [1, 2, 3, 4, 5],
+      condition: this.selectedConditions.length > 0 ? this.selectedConditions.map(function (x) { return (x.title) }) : this.conditions.map(function (x) { return (x.title) }),
+      exchange: this.selectedExchanges.length > 0 ? this.selectedExchanges.map(function (x) { return (x.title) }) : this.exchanges.map(function (x) { return (x.title) }),
+      features: this.selectedFeatures.length > 0 ? this.selectedFeatures.map(function (x) { return (x.title) }) : this.features.map(function (x) { return (x.title) }),
+    }
+    this.service.advanceSearchProperty(data).subscribe((response) => {
+      if (response.success === true) {
+        this.properties = response.data;
+        this.total = response.data.length;
+        this.Items = Array(this.total)
+          .fill(0)
+          .map((x, i) => ({ id: i }));
+        // this.pageOfItems = undefined;
+      }
+    });
     console.log(e)
+  }
+  onRemoveKey(e: any) {
+    this.keywords.pop();
+  }
+  onAddKey(e: any) {
+    this.keywords.push(e.value);
   }
   onTypeChange(e: any) {
     this.selectedPropertyType = e.value._id;
@@ -250,67 +284,6 @@ export class PropertiesComponent implements OnInit {
     this.router.navigateByUrl(
       '/properties/' + transactionTypeID + '/' + propertyTypeID + '/' + subPropertyTypeID
     );
-  }
-
-  sort(sortId: any): void {
-    this.sortId = sortId;
-    let data;
-    switch (sortId) {
-      case 1:
-        if (this.selectedPropertyType === '0' && this.selectedSubPropertyType === '0') {
-          data = {
-            updatedAt: -1,
-          };
-        } else if (this.selectedPropertyType !== '0' && this.selectedSubPropertyType === '0') {
-          data = {
-            propertyTypeID: this.selectedPropertyType,
-            updatedAt: -1,
-          };
-        } else {
-          data = {
-            propertyTypeID: this.selectedPropertyType,
-            subPropertyTypeID: this.selectedSubPropertyType,
-            updatedAt: -1,
-          };
-        }
-        break;
-      case 2:
-        if (this.selectedPropertyType === '0' && this.selectedSubPropertyType === '0') {
-          data = {
-            price: 1,
-          };
-        } else if (this.selectedPropertyType !== '0' && this.selectedSubPropertyType === '0') {
-          data = {
-            propertyTypeID: this.selectedPropertyType,
-            price: 1,
-          };
-        } else {
-          data = {
-            propertyTypeID: this.selectedPropertyType,
-            subPropertyTypeID: this.selectedSubPropertyType,
-            price: 1,
-          };
-        }
-        break;
-      case 3:
-        if (this.selectedPropertyType === '0' && this.selectedSubPropertyType === '0') {
-          data = {
-            price: -1,
-          };
-        } else if (this.selectedPropertyType !== '0' && this.selectedSubPropertyType === '0') {
-          data = {
-            propertyTypeID: this.selectedPropertyType,
-            price: -1,
-          };
-        } else {
-          data = {
-            propertyTypeID: this.selectedPropertyType,
-            subPropertyTypeID: this.selectedSubPropertyType,
-            price: -1,
-          };
-        }
-        break;
-    }
   }
 
   getPropertyTypes(): any {
