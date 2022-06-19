@@ -22,16 +22,16 @@ export class FavoritesComponent implements OnInit {
     private service: UserService,
     private localStorage: LocalStorageService,
     private router: Router
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     if (this.localStorage.getCurrentUser()) {
       this.isLogged = true;
       this.userType = this.localStorage.userType;
-      if(this.userType === 'user'){
+      if (this.userType === 'user') {
         this.getFavorites();
       }
-      else{
+      else {
         this.messageService.add({
           severity: 'error',
           summary: ' دریافت اطلاعات ',
@@ -39,7 +39,7 @@ export class FavoritesComponent implements OnInit {
         });
       }
     }
-    
+
   }
 
   getFavorites(): any {
@@ -48,7 +48,6 @@ export class FavoritesComponent implements OnInit {
       .subscribe((response) => {
         if (response.success === true) {
           this.favorites = response.data;
-          console.log(this.favorites)
           this.total = this.favorites.length;
         } else {
           this.messageService.add({
@@ -60,9 +59,9 @@ export class FavoritesComponent implements OnInit {
       });
   }
 
-  deleteFavorite(id: string): any {
+  deleteFavorite(userID: string,propertyID: string): any {
     this.service
-      .deleteFavorite(this.localStorage.userToken, id)
+      .deleteFavorite(this.localStorage.userToken,userID,propertyID)
       .subscribe((response) => {
         if (response.success === true) {
           this.messageService.add({
@@ -70,6 +69,7 @@ export class FavoritesComponent implements OnInit {
             summary: ' حذف ',
             detail: 'ملک با موفقیت از لیست علاقمندی شما حذف شد.',
           });
+          this.getFavorites();
         } else {
           this.messageService.add({
             severity: 'error',

@@ -3,18 +3,18 @@
     <div class="theme-container">
       <h1 class="section-title">آخرین اخبار</h1>
       <div class="row">
-        <div class="col-lg-4 rtl">
-          <div class="left-blog">
+        <div class="col-lg-4">
+          <div class="recent-blog">
             <h4>جدیدترین خبرها</h4>
-            <div *ngFor="let i of news">
+            <div *ngFor="let i of latestNews">
               <div class="row">
                 <div class="col-5">
-                  <a [routerLink]="['/new',i['_id']]">
-                    <img  class="img-fluid h-100" [src]="i['image']" [alt]="i['imageDescription']">
-                  </a>
+                  <img class="img-fluid h-100" [src]="i['image']" [alt]="i['imageDescription']">
                 </div>
-                <div class="col-7 text-right">
+                <div class="col-7">
+                  <div class="row justify-content-right mt-3">
                   <a [routerLink]="['/new',i['_id']]">{{i['title']}}</a>
+                  </div>
                   <div class="row justify-content-right mt-3">
                     <p class="row text-right rtl">
                       <i class="material-icons text-muted">date_range</i>

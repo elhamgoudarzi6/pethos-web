@@ -6,7 +6,7 @@
       <div class="box">
         <div class="row no-gutters justify-content-center">
           <div class="col-lg-6 col-sm-12 align-self-center text-right">
-            <h2 class="panel-title"> مدیریت تیکت ها</h2>
+            <h2 class="panel-title"> مدیریت پیام ها</h2>
           </div>
           <div class="col-lg-6 col-sm-12 align-self-center">
             <ul class="list-inline panel-breadcrumb">
@@ -16,7 +16,7 @@
               <li class="list-inline-item pointer" [routerLink]="['/user']">
                 داشبورد
               </li>
-              <li class="list-inline-item current"> مدیریت تیکت ها</li>
+              <li class="list-inline-item current"> مدیریت پیام ها</li>
             </ul>
           </div>
         </div>
@@ -42,7 +42,7 @@
         >
           <ng-template pTemplate="caption">
             <div class="table-header row">
-              <div class="col-sm-6 font-iran-bold">لیست تیکت ها (تعداد :  {{ticketsCount}}) </div>
+              <div class="col-sm-6 font-iran-bold">لیست پیام ها (تعداد :  {{ticketsCount}}) </div>
               <div class="col-sm-6 text-left">
                 <button
                   pButton
@@ -73,7 +73,7 @@
               <th style="width: 45px"></th>
               <th style="width: 45px">ردیف</th>
               <th pSortableColumn="ticketNumber">
-                شماره تیکت
+                کد پیام
                 <p-sortIcon field="ticketNumber"></p-sortIcon>
               </th>
               <th pSortableColumn="agentID">

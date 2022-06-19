@@ -58,6 +58,8 @@ export class ProfileComponent implements OnInit {
       .subscribe((response) => {
         if (response.success === true) {
           this.countPropertyByUser = response.data;
+        }else if(response.success === false){
+          this.countPropertyByUser =0;
         }
       });
   }

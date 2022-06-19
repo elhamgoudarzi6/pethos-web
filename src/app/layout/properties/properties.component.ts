@@ -14,7 +14,7 @@ import { Component, OnInit } from '@angular/core';
 export class PropertiesComponent implements OnInit {
   public items: MenuItem[];
   public home: MenuItem;
-  sortID: any;
+  sortID = 1;
   public displayMobileFilter: boolean = false;
   public Items: any[] = [];
   public pageOfItems: Array<any>;
@@ -45,10 +45,9 @@ export class PropertiesComponent implements OnInit {
   currentTransactionType: any;
   currentPropertyType: any;
   currentSubPropertyType: any;
-  sortId: any;
   areaTo: any;
   areaFrom: any;
-  keywords: string[]=[];  
+  keywords: string[] = [];
   constructor(
     private service: LayoutService,
     private messageService: MessageService,
@@ -82,7 +81,6 @@ export class PropertiesComponent implements OnInit {
     this.getConditions();
     this.getFeatures();
     this.getTransactionTypes();
-
     let data;
     if (this.selectedtransactionType === '0' && this.selectedPropertyType === '0'
       && this.selectedSubPropertyType === '0') {
@@ -121,99 +119,14 @@ export class PropertiesComponent implements OnInit {
   }
 
   searchProperty(): any {
-   console.log(this.keywords)
-    var keywords =this.keywords,
-     regex = keywords.join("|");
-    let data;
-    if (this.selectedtransactionType === '0' && this.selectedPropertyType === '0'
-      && this.selectedSubPropertyType === '0') {
-      data = {
-        keywords:regex,
-        updatedAt: this.sortID === 1 ? -1 : 1,
-        price: this.sortID === 2 ? 1 : -1,
-        priceMin: this.priceFrom,
-        priceMax: this.priceTo,
-        areaMin: this.areaFrom,
-        areaMax: this.areaTo,
-        bath: this.selectedbaths.length > 0 ? this.selectedbaths.map(function (x) { return (x.value) }) : [1, 2, 3, 4, 5],
-        bedroom: this.selectedrooms.length > 0 ? this.selectedrooms.map(function (x) { return (x.value) }) : [1, 2, 3, 4, 5],
-        condition: this.selectedConditions.length > 0 ? this.selectedConditions.map(function (x) { return (x.title) }) : this.conditions.map(function (x) { return (x.title) }),
-        exchange: this.selectedExchanges.length > 0 ? this.selectedExchanges.map(function (x) { return (x.title) }) : this.exchanges.map(function (x) { return (x.title) }),
-        features: this.selectedFeatures.length > 0 ? this.selectedFeatures.map(function (x) { return (x.title) }) : this.features.map(function (x) { return (x.title) }),
-      }
-    } else if (this.selectedtransactionType === '0' && this.selectedPropertyType !== '0' && this.selectedSubPropertyType === '0') {
-      data = {
-        keywords:regex,
-        propertyTypeID: this.selectedPropertyType,
-        updatedAt: this.sortID === 1 ? -1 : 1,
-        price: this.sortID === 2 ? 1 : -1,
-        priceMin: this.priceFrom,
-        priceMax: this.priceTo,
-        areaMin: this.areaFrom,
-        areaMax: this.areaTo,
-        bath: this.selectedbaths.length > 0 ? this.selectedbaths.map(function (x) { return (x.value) }) : [1, 2, 3, 4, 5],
-        bedroom: this.selectedrooms.length > 0 ? this.selectedrooms.map(function (x) { return (x.value) }) : [1, 2, 3, 4, 5],
-        condition: this.selectedConditions.length > 0 ? this.selectedConditions.map(function (x) { return (x.title) }) : this.conditions.map(function (x) { return (x.title) }),
-        exchange: this.selectedExchanges.length > 0 ? this.selectedExchanges.map(function (x) { return (x.title) }) : this.exchanges.map(function (x) { return (x.title) }),
-        features: this.selectedFeatures.length > 0 ? this.selectedFeatures.map(function (x) { return (x.title) }) : this.features.map(function (x) { return (x.title) }),
-      }
-    } else if (this.selectedtransactionType === '0' && this.selectedPropertyType !== '0' && this.selectedSubPropertyType !== '0') {
-      data = {
-        keywords:regex,
-        propertyTypeID: this.selectedPropertyType,
-        subPropertyTypeID: this.selectedSubPropertyType,
-        updatedAt: this.sortID === 1 ? -1 : 1,
-        price: this.sortID === 2 ? 1 : -1,
-        priceMin: this.priceFrom,
-        priceMax: this.priceTo,
-        areaMin: this.areaFrom,
-        areaMax: this.areaTo,
-        bath: this.selectedbaths.length > 0 ? this.selectedbaths.map(function (x) { return (x.value) }) : [1, 2, 3, 4, 5],
-        bedroom: this.selectedrooms.length > 0 ? this.selectedrooms.map(function (x) { return (x.value) }) : [1, 2, 3, 4, 5],
-        condition: this.selectedConditions.length > 0 ? this.selectedConditions.map(function (x) { return (x.title) }) : this.conditions.map(function (x) { return (x.title) }),
-        exchange: this.selectedExchanges.length > 0 ? this.selectedExchanges.map(function (x) { return (x.title) }) : this.exchanges.map(function (x) { return (x.title) }),
-        features: this.selectedFeatures.length > 0 ? this.selectedFeatures.map(function (x) { return (x.title) }) : this.features.map(function (x) { return (x.title) }),
-      }
-    } else if (this.selectedtransactionType !== '0' && this.selectedPropertyType !== '0' && this.selectedSubPropertyType !== '0') {
-      data = {
-        keywords:regex,
-        propertyTypeID: this.selectedPropertyType,
-        subPropertyTypeID: this.selectedSubPropertyType,
-        transactionTypeID: this.selectedtransactionType,
-        updatedAt: this.sortID === 1 ? -1 : 1,
-        price: this.sortID === 2 ? 1 : -1,
-        priceMin: this.priceFrom,
-        priceMax: this.priceTo,
-        areaMin: this.areaFrom,
-        areaMax: this.areaTo,
-        bath: this.selectedbaths.length > 0 ? this.selectedbaths.map(function (x) { return (x.value) }) : [1, 2, 3, 4, 5],
-        bedroom: this.selectedrooms.length > 0 ? this.selectedrooms.map(function (x) { return (x.value) }) : [1, 2, 3, 4, 5],
-        condition: this.selectedConditions.length > 0 ? this.selectedConditions.map(function (x) { return (x.title) }) : this.conditions.map(function (x) { return (x.title) }),
-        exchange: this.selectedExchanges.length > 0 ? this.selectedExchanges.map(function (x) { return (x.title) }) : this.exchanges.map(function (x) { return (x.title) }),
-        features: this.selectedFeatures.length > 0 ? this.selectedFeatures.map(function (x) { return (x.title) }) : this.features.map(function (x) { return (x.title) }),
-      }
-    }
-    this.service.advanceSearchProperty(data).subscribe((response) => {
-      if (response.success === true) {
-        this.properties = response.data;
-        this.total = response.data.length;
-        this.Items = Array(this.total)
-          .fill(0)
-          .map((x, i) => ({ id: i }));
-        // this.pageOfItems = undefined;
-      }
-    });
-  }
-
-  onChangeSortID(e: any) {
-    this.sortID = e;
+    var keywords = this.keywords,
+      regex = keywords.join("|");
     let data;
     data = {
+      transactionTypeID: this.selectedtransactionType,
       propertyTypeID: this.selectedPropertyType,
       subPropertyTypeID: this.selectedSubPropertyType,
-      transactionTypeID: this.selectedtransactionType,
-      updatedAt: this.sortID === 1 ? -1 : 1,
-      price: this.sortID === 2 ? 1 : -1,
+      keywords: regex,
       priceMin: this.priceFrom,
       priceMax: this.priceTo,
       areaMin: this.areaFrom,
@@ -234,8 +147,76 @@ export class PropertiesComponent implements OnInit {
         // this.pageOfItems = undefined;
       }
     });
-    console.log(e)
   }
+
+  onChangeSortID(e: any) {
+    this.sortID = e;
+    let data;
+    switch (this.sortID) {
+      case 1:
+        data = {
+          propertyTypeID: this.selectedPropertyType,
+          subPropertyTypeID: this.selectedSubPropertyType,
+          transactionTypeID: this.selectedtransactionType,
+          updatedAt: -1,
+          priceMin: this.priceFrom,
+          priceMax: this.priceTo,
+          areaMin: this.areaFrom,
+          areaMax: this.areaTo,
+          bath: this.selectedbaths.length > 0 ? this.selectedbaths.map(function (x) { return (x.value) }) : [1, 2, 3, 4, 5],
+          bedroom: this.selectedrooms.length > 0 ? this.selectedrooms.map(function (x) { return (x.value) }) : [1, 2, 3, 4, 5],
+          condition: this.selectedConditions.length > 0 ? this.selectedConditions.map(function (x) { return (x.title) }) : this.conditions.map(function (x) { return (x.title) }),
+          exchange: this.selectedExchanges.length > 0 ? this.selectedExchanges.map(function (x) { return (x.title) }) : this.exchanges.map(function (x) { return (x.title) }),
+          features: this.selectedFeatures.length > 0 ? this.selectedFeatures.map(function (x) { return (x.title) }) : this.features.map(function (x) { return (x.title) }),
+        };
+        break;
+      case 2:
+        data = {
+          propertyTypeID: this.selectedPropertyType,
+          subPropertyTypeID: this.selectedSubPropertyType,
+          transactionTypeID: this.selectedtransactionType,
+          price: 1,
+          priceMin: this.priceFrom,
+          priceMax: this.priceTo,
+          areaMin: this.areaFrom,
+          areaMax: this.areaTo,
+          bath: this.selectedbaths.length > 0 ? this.selectedbaths.map(function (x) { return (x.value) }) : [1, 2, 3, 4, 5],
+          bedroom: this.selectedrooms.length > 0 ? this.selectedrooms.map(function (x) { return (x.value) }) : [1, 2, 3, 4, 5],
+          condition: this.selectedConditions.length > 0 ? this.selectedConditions.map(function (x) { return (x.title) }) : this.conditions.map(function (x) { return (x.title) }),
+          exchange: this.selectedExchanges.length > 0 ? this.selectedExchanges.map(function (x) { return (x.title) }) : this.exchanges.map(function (x) { return (x.title) }),
+          features: this.selectedFeatures.length > 0 ? this.selectedFeatures.map(function (x) { return (x.title) }) : this.features.map(function (x) { return (x.title) }),
+        };
+        break;
+      case 3:
+        data = {
+          propertyTypeID: this.selectedPropertyType,
+          subPropertyTypeID: this.selectedSubPropertyType,
+          transactionTypeID: this.selectedtransactionType,
+          price: -1,
+          priceMin: this.priceFrom,
+          priceMax: this.priceTo,
+          areaMin: this.areaFrom,
+          areaMax: this.areaTo,
+          bath: this.selectedbaths.length > 0 ? this.selectedbaths.map(function (x) { return (x.value) }) : [1, 2, 3, 4, 5],
+          bedroom: this.selectedrooms.length > 0 ? this.selectedrooms.map(function (x) { return (x.value) }) : [1, 2, 3, 4, 5],
+          condition: this.selectedConditions.length > 0 ? this.selectedConditions.map(function (x) { return (x.title) }) : this.conditions.map(function (x) { return (x.title) }),
+          exchange: this.selectedExchanges.length > 0 ? this.selectedExchanges.map(function (x) { return (x.title) }) : this.exchanges.map(function (x) { return (x.title) }),
+          features: this.selectedFeatures.length > 0 ? this.selectedFeatures.map(function (x) { return (x.title) }) : this.features.map(function (x) { return (x.title) }),
+        };
+        break;
+    }
+    this.service.advanceSearchProperty(data).subscribe((response) => {
+      if (response.success === true) {
+        this.properties = response.data;
+        this.total = response.data.length;
+        this.Items = Array(this.total)
+          .fill(0)
+          .map((x, i) => ({ id: i }));
+        // this.pageOfItems = undefined;
+      }
+    });
+  }
+
   onRemoveKey(e: any) {
     this.keywords.pop();
   }

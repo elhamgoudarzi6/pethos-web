@@ -1,6 +1,6 @@
 import { Router } from '@angular/router';
 import { LocalStorageService } from 'src/app/auth/local-storage.service';
-import { MessageService } from 'primeng/api';
+import { MessageService} from 'primeng/api';
 import { LayoutService } from './../../layout.service';
 import { FormGroup } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';

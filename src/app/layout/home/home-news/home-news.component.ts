@@ -9,6 +9,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HomeNewsComponent implements OnInit {
   news: any[] = [];
+  latestNews: any[] = [];
   customOptions: OwlOptions = {
     autoplay: false,
     autoplaySpeed: 1000,
@@ -43,6 +44,11 @@ export class HomeNewsComponent implements OnInit {
 
   ngOnInit(): void {
     this.getLatestNews();
+    this.service.getLatestNews().subscribe((response) => {
+      if (response['success'] === true) {
+        this.latestNews = response['data'];
+      }
+    });
   }
 
   getLatestNews() {

@@ -7,8 +7,6 @@
     <p class="desc">املاک ثبت شده</p>
   </div>
 </div>
-<!-- <p-breadcrumb [model]="items" [home]="home" styleClass="pr-5"></p-breadcrumb> -->
-
 <section class="breadcrumbs">
   <div class="container">
     <ol class="pb-0">
@@ -94,7 +92,8 @@
         </div>
         <div class="row justify-content-center pb-3" [formGroup]="form">
           <div class="col-12">
-            <p-chips placeholder=" کلمات کلیدی " [(ngModel)]="keywords" (onAdd)="onAddKey($event)" (onRemove)="onRemoveKey($event)" [addOnTab]="true" [addOnBlur]="true">
+            <p-chips placeholder=" کلمات کلیدی " [(ngModel)]="keywords" (onAdd)="onAddKey($event)"
+              (onRemove)="onRemoveKey($event)" [addOnTab]="true" [addOnBlur]="true">
             </p-chips>
           </div>
         </div>
@@ -129,17 +128,21 @@
                 مرتب سازی
               </button>
               <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                <a class="dropdown-item" (click)="onChangeSortID(1)" [ngClass]="sortId === 1 ? 'is-active' : ''">
+                <a class="dropdown-item" (click)="onChangeSortID(1)" [ngClass]="sortID === 1 ? 'is-active' : ''">
                   جدیدترین</a>
-                <a class="dropdown-item" (click)="onChangeSortID(2)" [ngClass]="sortId === 2 ? 'is-active' : ''">
+                <a class="dropdown-item" (click)="onChangeSortID(2)" [ngClass]="sortID === 2 ? 'is-active' : ''">
                   ارزان ترین</a>
-                <a class="dropdown-item" (click)="onChangeSortID(3)" [ngClass]="sortId === 3 ? 'is-active' : ''">
+                <a class="dropdown-item" (click)="onChangeSortID(3)" [ngClass]="sortID === 3 ? 'is-active' : ''">
                   گران ترین</a>
               </div>
             </div>
           </div>
-          <div class="d-sm-block d-md-none d-lg-none d-xl-nonecol align-self-center">
-            <i class="fa fa-ellipsis-v" (click)="displayMobileFilter = true"></i>
+          <div class="d-sm-block d-md-none d-lg-none d-xl-nonecol align-self-center"
+            (click)="displayMobileFilter = true">
+            <a>
+              <span class="primary-color" style="font-family: IRANSans_Bold;"> نمایش فیلترها </span>
+              <i class="fa fa-filter primary-color pl-3" aria-hidden="true"></i>
+            </a>
           </div>
         </div>
         <div class="row justify-content-right mt-3">
@@ -292,7 +295,6 @@
               optionLabel="title"></p-dropdown>
           </div>
         </div>
-
         <div class="row justify-content-center pb-3">
           <div class="col-12">
             <p-multiSelect [options]="features" (onChange)="onChangeFeature($event)" placeholder="ویژگی ها"
@@ -347,7 +349,8 @@
         </div>
         <div class="row justify-content-center pb-3" [formGroup]="form">
           <div class="col-12">
-            <p-chips placeholder=" کلمات کلیدی " [(ngModel)]="keywords" (onAdd)="onAddKey($event)" (onRemove)="onRemoveKey($event)" [addOnTab]="true" [addOnBlur]="true">
+            <p-chips placeholder=" کلمات کلیدی " [(ngModel)]="keywords" (onAdd)="onAddKey($event)"
+              (onRemove)="onRemoveKey($event)" [addOnTab]="true" [addOnBlur]="true">
             </p-chips>
           </div>
         </div>

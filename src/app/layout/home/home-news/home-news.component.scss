@@ -27,15 +27,18 @@
   color: rgba(0, 0, 0, 0.54) !important;
   font-size: 11px;
 }
+
 .news-item .desc {
   font-family: IRANSans_Light;
   color: rgba(0, 0, 0, 0.54) !important;
   font-size: 12px;
 }
-:host::ng-deep .owl-carousel{
+
+:host::ng-deep .owl-carousel {
   box-shadow: 0px 2px 1px -1px rgb(0 0 0 / 20%), 0px 1px 1px 0px rgb(0 0 0 / 14%), 0px 1px 3px 0px rgb(0 0 0 / 12%);
 
 }
+
 :host::ng-deep .owl-prev,
 :host::ng-deep .owl-next {
   position: absolute;
@@ -46,9 +49,11 @@
 :host::ng-deep .owl-prev {
   left: 0;
 }
+
 :host::ng-deep .owl-next {
   right: 0;
 }
+
 :host::ng-deep .owl-theme .owl-nav [class*=owl-] {
   color: #e0e0e0 !important;
   font-size: 8px;
@@ -60,10 +65,11 @@
 
 
 @media screen and (max-width: 767px) {
-  .new-box{
+  .new-box {
     flex-direction: column-reverse !important;
   }
-  .news-card img{
+
+  .news-card img {
     margin: auto;
     display: block;
     text-align: center;
@@ -72,16 +78,16 @@
   }
 }
 
-.left-blog h4 {
+.recent-blog h4 {
   border-bottom: 1px solid #ddd;
   color: #444;
   font-size: 17px;
   font-weight: 500;
-  padding: 15px 10px;  
+  padding: 15px 10px;
   text-align: right;
 }
 
-.left-blog {
+.recent-blog {
   background: #ffffff none repeat scroll 0 0;
   margin-bottom: 10px;
   overflow: hidden;
@@ -89,13 +95,10 @@
   border-radius: 5px;
   color: rgba(0, 0, 0, 0.70) !important;
   box-shadow: 0px 2px 1px -1px rgb(0 0 0 / 20%), 0px 1px 1px 0px rgb(0 0 0 / 14%), 0px 1px 3px 0px rgb(0 0 0 / 12%);
-
 }
 
+.recent-blog a {
+  font-size: 14px;
+  text-align: right;
 
-
-
-
-
-
-
+}

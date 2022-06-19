@@ -340,12 +340,12 @@ property-item.grid-item.full-width-page.column-4 .address,
   background:transparent;
 }
 .property-item .control-icons button svg {
-  fill: #fff;
+  fill:red;
   transition: 0.2s;
 }
 
 .property-item .control-icons button svg :hover{
-  fill:red;
+  fill:fff;
 }
 
 .theme-pagination {

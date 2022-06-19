@@ -31,11 +31,11 @@
             حساب کاربری
           </button>
           <div class="dropdown-menu">
-            <a class="dropdown-item" [routerLink]="['/auth']" *ngIf="!isLogged">ثبت نام/ورود</a>
+            <a class="dropdown-item" [routerLink]="['/auth']" *ngIf="!isLogged">ثبت نام | ورود</a>
             <a class="dropdown-item" [routerLink]="['/user']" *ngIf="isLogged">پنل کاربر</a>
             <a class="dropdown-item" [routerLink]="['/favorites']">علاقه مندی ها</a>
-            <div class="dropdown-divider"></div>
-            <a class="dropdown-item" href="#">خروج</a>
+            <div class="dropdown-divider" *ngIf="isLogged"></div>
+            <a class="dropdown-item" *ngIf="isLogged"  (click)="logOut()">خروج</a>
           </div>
         </div>
 

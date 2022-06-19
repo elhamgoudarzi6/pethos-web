@@ -15,4 +15,7 @@ export class PcTopHeaderComponent implements OnInit {
       this.isLogged = true;
     }
   }
+  logOut(): void {
+    this.localStorageService.removeCurrentUser();
+  }
 }

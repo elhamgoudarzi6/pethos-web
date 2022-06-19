@@ -17,12 +17,14 @@ export class MobileTopHeaderComponent implements OnInit {
     private localStorageService: LocalStorageService,
     private router: Router
   ) {}
-
+  logOut(): void {
+    this.localStorageService.removeCurrentUser();
+  }
   ngOnInit(): void {
     if (this.localStorageService.getCurrentUser()) {
       this.isLogged = true;
     }
-
+ 
     this.items = [
       {
         label: 'صفحه اصلی',

@@ -6,7 +6,7 @@ import { Injectable } from '@angular/core';
 })
 export class UserService {
   baseUrl = 'https://api.pethos.app/api/v1/user/';
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
 
   getToken(id: string): any {
     let body = {
@@ -32,12 +32,12 @@ export class UserService {
   //#region  User
   getUser(token: string, id: string): any {
     const params = new HttpParams().set('token', token);
-    return this.http.get(this.baseUrl + 'getUser/' + id, {params});
+    return this.http.get(this.baseUrl + 'getUser/' + id, { params });
   }
 
   updateUser(token: string, id: string, data: any): any {
     const params = new HttpParams().set('token', token);
-    return this.http.put(this.baseUrl + 'updateUser/' + id, data, {params});
+    return this.http.put(this.baseUrl + 'updateUser/' + id, data, { params });
   }
 
   changeMobileNumber(token: string, id: any, data: any): any {
@@ -45,13 +45,12 @@ export class UserService {
     return this.http.put(
       this.baseUrl + 'changeMobileNumber/' + id,
       data,
-      {params}
+      { params }
     );
   }
-
   findMobile(token: string, data: any): any {
     const params = new HttpParams().set('token', token);
-    return this.http.post(this.baseUrl + 'findMobile', data, {params});
+    return this.http.post(this.baseUrl + 'findMobile', data, { params });
   }
   //#endregion
 
@@ -59,44 +58,44 @@ export class UserService {
     const params = new HttpParams().set('token', token);
     return this.http.get(this.baseUrl + 'getAgentRating/' + id, { params });
   }
-  
+
   //#region Ticket
   getAllTicketsByUserId(token: string, id: string): any {
     const params = new HttpParams().set('token', token);
-    return this.http.get(this.baseUrl + 'allTicketForUser/' + id, {params});
+    return this.http.get(this.baseUrl + 'allTicketForUser/' + id, { params });
   }
   getCountOfAllTickets(token: string, id: string): any {
     const params = new HttpParams().set('token', token);
     return this.http.get(
       this.baseUrl + 'countTicketForUser/' + id,
-      {params}
+      { params }
     );
   }
   addTicket(token: string, data: any): any {
     const params = new HttpParams().set('token', token);
-    return this.http.post(this.baseUrl + 'registerTicket', data, {params});
+    return this.http.post(this.baseUrl + 'registerTicket', data, { params });
   }
   replyTicket(token: string, id: string, data: any): any {
     const params = new HttpParams().set('token', token);
-    return this.http.put(this.baseUrl + 'replyTicket/' + id, data, {params});
+    return this.http.put(this.baseUrl + 'replyTicket/' + id, data, { params });
   }
   //#endregion
 
   //#region Agent Categories
   getAllAgentCategory(token: string): any {
     const params = new HttpParams().set('token', token);
-    return this.http.get(this.baseUrl + 'getAllCategoryAgent', {params});
+    return this.http.get(this.baseUrl + 'getAllCategoryAgent', { params });
   }
   //#endregion
 
   //#region Favorites
   getAllFavorites(token: string, id: string): any {
     const params = new HttpParams().set('token', token);
-    return this.http.get(this.baseUrl + 'getAllFavorite/' + id, {params});
+    return this.http.get(this.baseUrl + 'getAllFavorite/' + id, { params });
   }
-  deleteFavorite(token: string, id: any): any {
+  deleteFavorite(token: string, userID: string, propertyID: string): any {
     const params = new HttpParams().set('token', token);
-    return this.http.delete(this.baseUrl + 'deleteFavorite/' + id, {params});
+    return this.http.delete(this.baseUrl + 'deleteFavorite/' + userID + '/' + propertyID, { params });
   }
   //#endregion
 
@@ -105,18 +104,18 @@ export class UserService {
     const params = new HttpParams().set('token', token);
     return this.http.get(
       this.baseUrl + 'getAllRequestVisitByUser/' + id,
-      {params}
+      { params }
     );
   }
   getRequestVisit(token: string, id: string): any {
     const params = new HttpParams().set('token', token);
-    return this.http.get(this.baseUrl + 'getRequestVisit/' + id, {params});
+    return this.http.get(this.baseUrl + 'getRequestVisit/' + id, { params });
   }
   deleteVisitRequest(token: string, id: any): any {
     const params = new HttpParams().set('token', token);
     return this.http.delete(
       this.baseUrl + 'deleteRequestVisit/' + id,
-      {params}
+      { params }
     );
   }
   //#endregion
@@ -126,66 +125,66 @@ export class UserService {
     const params = new HttpParams().set('token', token);
     return this.http.get(
       this.baseUrl + 'getAllProperty',
-      {params}
+      { params }
     );
   }
   getAllPropertiesByUserId(token: string, id: string): any {
     const params = new HttpParams().set('token', token);
     return this.http.get(
       this.baseUrl + 'getAllPropertyByUser/' + id,
-      {params}
+      { params }
     );
   }
   countPropertyByUser(token: string, id: string): any {
     const params = new HttpParams().set('token', token);
     return this.http.get(
       this.baseUrl + 'countPropertyByUser/' + id,
-      {params}
+      { params }
     );
   }
   addProperty(token: string, data: any): any {
     const params = new HttpParams().set('token', token);
-    return this.http.post(this.baseUrl + 'registerProperty', data, {params});
+    return this.http.post(this.baseUrl + 'registerProperty', data, { params });
   }
   updateProperty(token: string, id: string, data: any): any {
     const params = new HttpParams().set('token', token);
     return this.http.put(
       this.baseUrl + 'updateProperty/' + id,
       data,
-      {params}
+      { params }
     );
   }
   deleteProperty(token: string, id: string): any {
     const params = new HttpParams().set('token', token);
-    return this.http.delete(this.baseUrl + 'deleteProperty/' + id, {params});
+    return this.http.delete(this.baseUrl + 'deleteProperty/' + id, { params });
   }
   //#endregion
 
   //#region Discounts
   getAllDiscounts(token: string): any {
     const params = new HttpParams().set('token', token);
-    return this.http.get(this.baseUrl + 'getAllDiscount', {params});
+    return this.http.get(this.baseUrl + 'getAllDiscount', { params });
   }
   //#endregion
 
   //#region Conditions
   getAllConditions(token: string): any {
     const params = new HttpParams().set('token', token);
-    return this.http.get(this.baseUrl + 'getAllCondition', {params});
+    return this.http.get(this.baseUrl + 'getAllCondition', { params });
   }
   //#endregion
 
   //#region Exchanges
   getAllExchanges(token: string): any {
     const params = new HttpParams().set('token', token);
-    return this.http.get(this.baseUrl + 'getAllExchange', {params});
+    return this.http.get(this.baseUrl + 'getAllExchange', { params });
   }
   //#endregion
 
   //#region Transaction Types
   getAllTransactionTypes(token: string): any {
     const params = new HttpParams().set('token', token);
-    return this.http.get(this.baseUrl + 'getAllTransactionType', {params});
+    return this.http.get(this.baseUrl + 'getAllTransactionType', { params });
   }
   //#endregion
 
@@ -193,14 +192,14 @@ export class UserService {
   getAllFeatures(token: string): any {
     const params = new HttpParams().set('token', token);
 
-    return this.http.get(this.baseUrl + 'getAllFeature', {params});
+    return this.http.get(this.baseUrl + 'getAllFeature', { params });
   }
   //#endregion
 
   //#region Property Types
   getAllPropertyTypes(token: string): any {
     const params = new HttpParams().set('token', token);
-    return this.http.get(this.baseUrl + 'getAllPropertyType', {params});
+    return this.http.get(this.baseUrl + 'getAllPropertyType', { params });
   }
   //#endregion
 
@@ -210,7 +209,7 @@ export class UserService {
 
     return this.http.get(
       this.baseUrl + 'getAllAgentByCategoryID/' + id,
-      {params}
+      { params }
     );
   }
   //#endregion

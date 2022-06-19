@@ -62,7 +62,7 @@ export class TicketsComponent implements OnInit {
 
   showAddTicketDialog(): void {
     const ref = this.dialogService.open(TicketAddComponent, {
-      header: 'ثبت تیکت',
+      header: 'ثبت پیام',
       width: '70%',
     });
     ref.onClose.subscribe((res) => {
