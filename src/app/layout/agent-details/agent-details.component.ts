@@ -79,7 +79,7 @@ export class AgentDetailsComponent implements OnInit {
       this.messageService.add({
         severity: 'error',
         summary: ' ورود به سایت ',
-        detail: 'لطفا ایتدا وارد سایت شوید.',
+        detail: 'لطفا ابتدا وارد سایت شوید.',
       });
     }
   }

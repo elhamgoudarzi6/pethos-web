@@ -28,7 +28,7 @@ export class FaqEditComponent implements OnInit {
     public config: DynamicDialogConfig
   ) {
     this.categories = [
-      { name: 'فروش', code: 'فروش' },
+      { name: 'خرید / فروش', code: 'خرید / فروش' },
       { name:'رهن / اجاره', code:'رهن / اجاره' },
     ];
   }

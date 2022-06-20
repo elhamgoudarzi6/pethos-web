@@ -1,9 +1,9 @@
 import { Router } from '@angular/router';
 import { LocalStorageService } from 'src/app/auth/local-storage.service';
-import { MessageService} from 'primeng/api';
+import { MessageService } from 'primeng/api';
 import { LayoutService } from './../../layout.service';
-import { FormGroup } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-home-search',
@@ -34,12 +34,34 @@ export class HomeSearchComponent implements OnInit {
   ngOnInit(): void {
     this.getPropertyTypes();
     this.getTransactionTypes();
+    this.createform();
+
   }
 
+  createform(): void {
+    this.form = new FormGroup({
+      transactionTypeID: new FormControl(null, Validators.compose([Validators.required])),
+      propertyTypeID: new FormControl(null, Validators.compose([Validators.required])),
+      subPropertyTypeID: new FormControl(null, Validators.compose([Validators.required])),
+    });
+  }
   goProperty(transactionTypeID: any, propertyTypeID: any, subPropertyTypeID: any): any {
-    this.router.navigateByUrl(
-      '/properties/' + transactionTypeID + '/' + propertyTypeID + '/' + subPropertyTypeID
-    );
+    if (transactionTypeID === undefined || propertyTypeID === undefined || subPropertyTypeID === undefined) {
+      let message;
+      if (transactionTypeID === undefined) { message = "لطفا نوع معامله را انتخاب کنید"; }
+      if (propertyTypeID === undefined) { message = "لطفا نوع کاربری ملک را انتخاب کنید"; }
+      if (subPropertyTypeID === undefined) { message = "لطفا نوع ملک را انتخاب کنید"; }
+      this.messageService.add({
+        severity: 'error',
+        summary: 'خطا',
+        detail: message,
+      });
+    } else {
+      this.router.navigateByUrl(
+        '/properties/' + transactionTypeID + '/' + propertyTypeID + '/' + subPropertyTypeID
+      );
+    }
+
   }
 
   getPropertyTypes(): any {

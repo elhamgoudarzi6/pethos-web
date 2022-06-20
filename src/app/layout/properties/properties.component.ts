@@ -147,6 +147,7 @@ export class PropertiesComponent implements OnInit {
         // this.pageOfItems = undefined;
       }
     });
+    if(this.displayMobileFilter===true){this.displayMobileFilter=false}
   }
 
   onChangeSortID(e: any) {

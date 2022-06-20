@@ -50,127 +50,93 @@
         <form [formGroup]="form" (ngSubmit)="addContactMessage()" class="w-100">
           <div class="row justify-content-center w-100 contact pr-4">
             <div class="col-sm-12 col-md-6 py-2">
-              <input
-                type="text"
-                pInputText
-                formControlName="fullName"
-                name="fullName"
-                class="w-100"
-                placeholder="نام و نام خانوادگی"
-              />
-              <ul
-                class="mt-1 text-right list-inline"
-                *ngFor="let error of errorMessages.fullName"
-              >
-                <li
-                  class="
+              <input type="text" pInputText formControlName="fullName" name="fullName" class="w-100"
+                placeholder="نام و نام خانوادگی" />
+              <ul class="mt-1 text-right list-inline" *ngFor="let error of errorMessages.fullName">
+                <li class="
                     font-small
                     text-danger
                     font-weight-bold
                     list-inline-item
-                  "
-                  *ngIf="
+                  " *ngIf="
                     form.get('fullName').hasError(error.type) &&
                     (form.get('fullName').dirty || form.get('fullName').touched)
-                  "
-                >
+                  ">
                   {{ error.message }}
                 </li>
               </ul>
             </div>
             <div class="col-sm-12 col-md-6 py-2">
-              <input
-                type="text"
-                pInputText
-                formControlName="email"
-                name="email"
-                class="w-100"
-                placeholder="پست الکترونیکی"
-              />
-              <ul
-                class="mt-1 text-right list-inline"
-                *ngFor="let error of errorMessages.email"
-              >
-                <li
-                  class="
+              <input type="text" pInputText formControlName="email" name="email" class="w-100"
+                placeholder="پست الکترونیکی" />
+              <ul class="mt-1 text-right list-inline" *ngFor="let error of errorMessages.email">
+                <li class="
                     font-small
                     text-danger
                     font-weight-bold
                     list-inline-item
-                  "
-                  *ngIf="
+                  " *ngIf="
                     form.get('email').hasError(error.type) &&
                     (form.get('email').dirty || form.get('email').touched)
-                  "
-                >
+                  ">
                   {{ error.message }}
                 </li>
               </ul>
             </div>
-            <div class="col-sm-12 py-2">
-              <input
-                type="text"
-                pInputText
-                formControlName="title"
-                name="title"
-                class="w-100"
-                placeholder="عنوان"
-              />
-              <ul
-                class="mt-1 text-right list-inline"
-                *ngFor="let error of errorMessages.title"
-              >
-                <li
-                  class="
+            <div class="row justify-content-center w-100 contact pr-4">
+              <div class="col-sm-12 col-md-6 py-2">
+                <input type="text" pInputText formControlName="mobile" name="mobile" class="w-100"
+                  placeholder="موبایل" />
+                <ul class="mt-1 text-right list-inline" *ngFor="let error of errorMessages.mobile">
+                  <li class="
                     font-small
                     text-danger
                     font-weight-bold
                     list-inline-item
-                  "
-                  *ngIf="
+                  " *ngIf="
+                    form.get('mobile').hasError(error.type) &&
+                    (form.get('mobile').dirty || form.get('mobile').touched)
+                  ">
+                    {{ error.message }}
+                  </li>
+                </ul>
+              </div>
+              <div class="col-sm-12 col-md-6 py-2">
+                <input type="text" pInputText formControlName="title" name="title" class="w-100" placeholder="عنوان" />
+                <ul class="mt-1 text-right list-inline" *ngFor="let error of errorMessages.title">
+                  <li class="
+                    font-small
+                    text-danger
+                    font-weight-bold
+                    list-inline-item
+                  " *ngIf="
                     form.get('title').hasError(error.type) &&
                     (form.get('title').dirty || form.get('title').touched)
-                  "
-                >
-                  {{ error.message }}
-                </li>
-              </ul>
+                  ">
+                    {{ error.message }}
+                  </li>
+                </ul>
+              </div>
             </div>
             <div class="col-12 py-2">
-              <textarea
-                pInputTextarea
-                formControlName="message"
-                name="message"
-                [rows]="10"
-                class="w-100"
-                placeholder="پیام شما"
-              ></textarea>
-              <ul
-                class="mt-1 text-right list-inline"
-                *ngFor="let error of errorMessages.message"
-              >
-                <li
-                  class="
+              <textarea pInputTextarea formControlName="message" name="message" [rows]="10" class="w-100"
+                placeholder="پیام شما"></textarea>
+              <ul class="mt-1 text-right list-inline" *ngFor="let error of errorMessages.message">
+                <li class="
                     font-small
                     text-danger
                     font-weight-bold
                     list-inline-item
-                  "
-                  *ngIf="
+                  " *ngIf="
                     form.get('message').hasError(error.type) &&
                     (form.get('message').dirty || form.get('message').touched)
-                  "
-                >
+                  ">
                   {{ error.message }}
                 </li>
               </ul>
             </div>
             <div class="col-xs-12 w-100 py-3 text-center">
-              <button
-                class="green-button"
-                type="submit"
-                [disabled]="form.invalid"
-              >
+              <button class="green-button" type="submit" [disabled]="form.invalid">
                 ارسال
               </button>
             </div>

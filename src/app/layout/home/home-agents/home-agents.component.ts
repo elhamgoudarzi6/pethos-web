@@ -10,6 +10,7 @@ import { Router } from '@angular/router';
 })
 export class HomeAgentsComponent implements OnInit {
   agents: any[] = [];
+  agentRating: any[] = [];
   customOptions: OwlOptions = {
     autoplay: true,
     autoplaySpeed: 1000,
@@ -50,10 +51,19 @@ export class HomeAgentsComponent implements OnInit {
     this.service.getAllAgents().subscribe((response) => {
       if (response.success === true) {
         this.agents = response.data;
+        let count = this.agents.length;
+        for (let i = 0; i <= count - 1; i++) {
+          let id = this.agents[i]._id;
+          this.service.getAgentRating(id).subscribe((response) => {
+            if (response.success === true) {
+              let rate = Math.round(response.data);
+              this.agentRating.push({ id, rate });
+            }
+          });
+        }
       }
     });
   }
-
   redirectToDetail(id: any): void {
     this.router.navigate(['/agent/' + id]);
   }

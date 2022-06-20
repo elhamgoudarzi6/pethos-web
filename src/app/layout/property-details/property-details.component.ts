@@ -50,6 +50,7 @@ export class PropertyDetailsComponent implements OnInit, OnDestroy {
   ];
   id: any;
   property: any;
+  rate: number = 0;
   map: mapboxgl.Map;
   geocoder: MapboxGeocoder;
   constructor(
@@ -114,6 +115,39 @@ export class PropertyDetailsComponent implements OnInit, OnDestroy {
       this.openPreviewFullScreen();
     }
     this.cd.detach();
+  }
+
+  onRateChange(e: any) {
+    if (this.localStorage.getCurrentUser()) {
+      this.rate = e.value;
+      let data = {
+        userID: this.localStorage.userID,
+        agentID: this.id,
+        rating: this.rate,
+      }
+      this.service.registerAgentRating(this.localStorage.userToken, data)
+        .subscribe((response) => {
+          if (response.success === true) {
+            this.messageService.add({
+              severity: 'success',
+              summary: ' ثبت اطلاعات ',
+              detail:response.data,
+            });
+          } else {
+            this.messageService.add({
+              severity: 'error',
+              summary: ' ثبت اطلاعات ',
+              detail: response.data,
+            });
+          }
+        });
+    } else {
+      this.messageService.add({
+        severity: 'error',
+        summary: ' ورود به سایت ',
+        detail: 'لطفا ابتدا وارد سایت شوید.',
+      });
+    }
   }
 
   openPreviewFullScreen() {

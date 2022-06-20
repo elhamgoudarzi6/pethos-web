@@ -26,7 +26,7 @@ export class FaqAddComponent implements OnInit {
     public ref: DynamicDialogRef
   ) {
     this.categories = [
-      { name: 'فروش', code: 'فروش' },
+      { name: 'خرید / فروش', code: 'خرید / فروش' },
       { name:'رهن / اجاره', code:'رهن / اجاره' },
     ];
   }

@@ -49,7 +49,7 @@ export class TicketsComponent implements OnInit {
       data: {
         ticketId
       },
-      header: 'پاسخ تیکت',
+      header: 'پاسخ پیام',
       width: '70%',
     });
     ref.onClose.subscribe((res) => {

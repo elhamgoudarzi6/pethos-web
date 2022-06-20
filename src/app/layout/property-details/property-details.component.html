@@ -11,7 +11,7 @@
             </div>
             <div class="p-3 text-right">
               <h2 class="fw-600">{{ property.Agent[0].fullName }}</h2>
-              <p-rating [ngModel]="agentRating | number : '1.2-2'" readonly="true" stars="5" [cancel]="false">
+              <p-rating [iconOnStyle]="{'color':'orange'}"  [ngModel]="agentRating | number : '1.2-2'" readonly="true" stars="5" [cancel]="false">
               </p-rating>
               <span>{{ property.Agent[0].Pethos[0].title}}/{{ property.Agent[0].Pethos[0].SubPethos[0].title}}/{{
                 property.Agent[0].Pethos[0].SubPethos[0].SubSubPethos[0].title}}</span><br />
@@ -25,6 +25,10 @@
                 <i class="material-icons primary-color">call</i>
                 <span class="mx-2 text-muted fw-500">{{ property.Agent[0].mobile}}</span>
               </p>
+              <div class="row justify-content-center">
+                <span style="font-family:IRANSans_Bold;font-size: 14px;padding-left: 10px;"> ثبت امتیاز: </span>
+                <p-rating [iconOnStyle]="{'color':'orange'}"  (onRate)="onRateChange($event)" [(ngModel)]="rate" [cancel]="false"></p-rating>
+              </div>
               <div class="row pb-3">
                 <div class="divider"></div>
               </div>

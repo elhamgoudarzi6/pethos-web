@@ -15,6 +15,9 @@ export class ContactComponent implements OnInit {
     fullName: [
       { type: 'required', message: 'نام و نام خانوادگی را وارد کنید.' },
     ],
+    mobile: [
+      { type: 'required', message: 'شماره موبایل را وارد کنید'},
+    ],
     email: [
       { type: 'required', message: 'آدرس پست الکترونیکی را وارد کنید.' },
       { type: 'email', message: 'آدرس پست الکترونیکی را صحیح وارد کنید.' },
@@ -41,6 +44,7 @@ export class ContactComponent implements OnInit {
         null,
         Validators.compose([Validators.required, Validators.email])
       ),
+      mobile:  new FormControl(null, Validators.compose([Validators.required])),
       title: new FormControl(null, Validators.compose([Validators.required])),
       message: new FormControl(null, Validators.compose([Validators.required])),
     });

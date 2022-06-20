@@ -63,16 +63,20 @@
           </ng-template>
           <ng-template pTemplate="header">
             <tr>
-              <th style="width: 45px"></th>
               <th style="width: 45px">ردیف</th>
               <th pSortableColumn="fullName">
                 نام و نام خانوادگی
                 <p-sortIcon field="fullName"></p-sortIcon>
               </th>
               <th pSortableColumn="email">
-                آدرس پست الکترونیکی
-                <p-sortIcon field="email"></p-sortIcon>
+                ایمیل
+                 <p-sortIcon field="email"></p-sortIcon>
+               </th>
+              <th pSortableColumn="mobile">
+                موبایل
+                <p-sortIcon field="mobile"></p-sortIcon>
               </th>
+          
               <th pSortableColumn="title">
                 عنوان
                 <p-sortIcon field="title"></p-sortIcon>
@@ -105,8 +109,12 @@
               <td>
                 {{ message.fullName }}
               </td>
-              <td>
+           
+              <td style="font-size: 11px;">
                 {{ message.email }}
+              </td>
+              <td>
+                {{ message.mobile }}
               </td>
               <td>
                 {{ message.title }}
