@@ -17,7 +17,6 @@ export class PropertiesComponent implements OnInit {
   sortID = 1;
   public displayMobileFilter: boolean = false;
   public Items: any[] = [];
-  public pageOfItems: Array<any>;
   properties: any[] = [];
   page: number = 1;
   pageSize: number = 9;
@@ -110,10 +109,6 @@ export class PropertiesComponent implements OnInit {
       if (response.success === true) {
         this.properties = response.data;
         this.total = response.data.length;
-        this.Items = Array(this.total)
-          .fill(0)
-          .map((x, i) => ({ id: i }));
-        // this.pageOfItems = undefined;
       }
     });
   }
@@ -141,10 +136,6 @@ export class PropertiesComponent implements OnInit {
       if (response.success === true) {
         this.properties = response.data;
         this.total = response.data.length;
-        this.Items = Array(this.total)
-          .fill(0)
-          .map((x, i) => ({ id: i }));
-        // this.pageOfItems = undefined;
       }
     });
     if(this.displayMobileFilter===true){this.displayMobileFilter=false}
@@ -159,7 +150,7 @@ export class PropertiesComponent implements OnInit {
           propertyTypeID: this.selectedPropertyType,
           subPropertyTypeID: this.selectedSubPropertyType,
           transactionTypeID: this.selectedtransactionType,
-          updatedAt: -1,
+          updatedAt: 1,
           priceMin: this.priceFrom,
           priceMax: this.priceTo,
           areaMin: this.areaFrom,
@@ -243,9 +234,7 @@ export class PropertiesComponent implements OnInit {
   onInputareaFrom(e: any) {
     this.areaFrom = e.value
   }
-  onChangePage(pageOfItems: Array<any>) {
-    this.pageOfItems = pageOfItems;
-  }
+
   onChangeBath(e: any) {
     this.selectedbaths = e.value;
     console.log(this.selectedbaths)
@@ -376,7 +365,7 @@ export class PropertiesComponent implements OnInit {
       this.messageService.add({
         severity: 'error',
         summary: ' ورود به سایت ',
-        detail: 'لطفا ایتدا وارد سایت شوید.',
+        detail: 'لطفا ابتدا وارد سایت شوید.',
       });
     }
   }

@@ -67,20 +67,21 @@ export class PropertyDetailsComponent implements OnInit, OnDestroy {
     this.route.paramMap.subscribe((params) => (this.id = params.get('id')));
     this.getProperty();
     this.bindDocumentListeners();
-    (mapboxgl as any).accessToken =
-    'pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4M29iazA2Z2gycXA4N2pmbDZmangifQ.-g_vE53SD2WrJ6tFX7QHmA';
-  this.map = new mapboxgl.Map({
-    container: 'pethos-mapbox',
-    style: 'mapbox://styles/mapbox/streets-v9',
-    center: [48.2890292, 33.4910974],
-    zoom: 9,
-  });
+ 
   }
 
   getProperty() {
     this.service.getProperty(this.id).subscribe((response) => {
       if (response.success === true) {
         this.property = response.data[0];
+        (mapboxgl as any).accessToken =
+        'pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4M29iazA2Z2gycXA4N2pmbDZmangifQ.-g_vE53SD2WrJ6tFX7QHmA';
+      this.map = new mapboxgl.Map({
+        container: 'pethos-mapbox',
+        style: 'mapbox://styles/mapbox/streets-v9',
+        center: [this.property.location[0].lat,this.property.location[0].lng],
+        zoom: 9,
+      });
         if (this.property.gallery.length > 0) {
           this.property.gallery.forEach((element) => {
             this.galleryFiles.push({
@@ -99,14 +100,14 @@ export class PropertyDetailsComponent implements OnInit, OnDestroy {
         this.service.getAgentRating(this.property.Agent[0]._id).subscribe((response) => {
           if (response.success === true) {
             let x = response.data;
-            this.agentRating=Math.round(x);
+            this.agentRating = Math.round(x);
             //this.agentRating=x.toFixed(2)
           }
         });
       }
     });
   }
-  
+
 
   toggleFullScreen() {
     if (this.fullscreen) {
@@ -131,7 +132,7 @@ export class PropertyDetailsComponent implements OnInit, OnDestroy {
             this.messageService.add({
               severity: 'success',
               summary: ' ثبت اطلاعات ',
-              detail:response.data,
+              detail: response.data,
             });
           } else {
             this.messageService.add({
@@ -224,14 +225,14 @@ export class PropertyDetailsComponent implements OnInit, OnDestroy {
       let data = {
         status: {
           status: "در انتظار بررسی",
-          date:new Date().toLocaleDateString('fa-IR'),
-          time:new Date().toLocaleTimeString('fa-IR')
+          date: new Date().toLocaleDateString('fa-IR'),
+          time: new Date().toLocaleTimeString('fa-IR')
         },
         userID: this.localStorage.userID,
-        propertyID:this.id,
-        agentID:this.property.agentID,
-        date:new Date().toLocaleDateString('fa-IR'),
-        time:new Date().toLocaleTimeString('fa-IR'),
+        propertyID: this.id,
+        agentID: this.property.agentID,
+        date: new Date().toLocaleDateString('fa-IR'),
+        time: new Date().toLocaleTimeString('fa-IR'),
       }
       console.log(data)
       this.service
@@ -255,7 +256,7 @@ export class PropertyDetailsComponent implements OnInit, OnDestroy {
       this.messageService.add({
         severity: 'error',
         summary: ' ورود به سایت ',
-        detail: 'لطفا ایتدا وارد سایت شوید.',
+        detail: 'لطفا ابتدا وارد سایت شوید.',
       });
     }
   }
@@ -287,7 +288,7 @@ export class PropertyDetailsComponent implements OnInit, OnDestroy {
       this.messageService.add({
         severity: 'error',
         summary: ' ورود به سایت ',
-        detail: 'لطفا ایتدا وارد سایت شوید.',
+        detail: 'لطفا ابتدا وارد سایت شوید.',
       });
     }
   }

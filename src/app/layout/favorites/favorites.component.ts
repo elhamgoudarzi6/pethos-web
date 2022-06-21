@@ -13,7 +13,7 @@ import { Component, OnInit } from '@angular/core';
 export class FavoritesComponent implements OnInit {
   favorites: any[] = [];
   page: number = 1;
-  pageSize: number = 9;
+  pageSize: number = 8;
   total: number = 0;
   isLogged = false;
   userType = '';
@@ -31,13 +31,13 @@ export class FavoritesComponent implements OnInit {
       if (this.userType === 'user') {
         this.getFavorites();
       }
-      else {
-        this.messageService.add({
-          severity: 'error',
-          summary: ' دریافت اطلاعات ',
-          detail: 'لطفا ابتدا وارد سایت شوید.',
-        });
-      }
+    } else {
+      this.messageService.add({
+        severity: 'error',
+        summary: ' دریافت اطلاعات ',
+        detail: 'لطفا ابتدا وارد سایت شوید.',
+      });
+      console.log( this.isLogged)
     }
 
   }
@@ -59,9 +59,9 @@ export class FavoritesComponent implements OnInit {
       });
   }
 
-  deleteFavorite(userID: string,propertyID: string): any {
+  deleteFavorite(userID: string, propertyID: string): any {
     this.service
-      .deleteFavorite(this.localStorage.userToken,userID,propertyID)
+      .deleteFavorite(this.localStorage.userToken, userID, propertyID)
       .subscribe((response) => {
         if (response.success === true) {
           this.messageService.add({

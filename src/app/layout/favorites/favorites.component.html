@@ -20,16 +20,11 @@
     <div class="row justify-content-right mt-3">
       <div class="item col-xs-12 col-sm-6 col-md-6 col-lg-3 col-xl-3 p-0" *ngFor="
               let item of favorites| paginate: {itemsPerPage: pageSize,currentPage: page,totalItems: total}">
-        <div class="
-                property-card property-item
-                m-2
-                grid-item
-                column-4
-                full-width-page
-              ">
+        <div class="property-card property-item m-2 grid-item column-4 full-width-page">
           <div class="thumbnail-section">
             <div class="price-type">
-              <span class="green font-iran-bold">{{ item.Property[0].priceType }}</span>
+              <span *ngIf="item.Property[0].priceType==='به قیمت'" class="green font-iran-bold">{{ item.Property[0].priceType }}</span>
+              <span *ngIf="item.Property[0].priceType==='مناسب'"  class="orange font-iran-bold">{{ item.Property[0].priceType }}</span>
             </div>
             <div class="property-status">
               <span class="green font-iran-bold">{{ item.Property[0].TransactionType[0].title }}</span>

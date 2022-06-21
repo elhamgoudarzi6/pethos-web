@@ -164,7 +164,8 @@
               ">
               <div class="thumbnail-section">
                 <div class="price-type">
-                  <span class="green font-iran-bold">{{ item.priceType }}</span>
+                  <span *ngIf="item.priceType ==='به قیمت'" class="green font-iran-bold">{{ item.priceType }}</span>
+                  <span *ngIf="item.priceType ==='مناسب'"  class="orange font-iran-bold">{{ item.priceType }}</span>
                 </div>
                 <div class="property-status">
                   <span class="green font-iran-bold">{{ item.TransactionType[0].title }}</span>
@@ -263,7 +264,7 @@
         <div class="row justify-content-center mt-3 site-card" *ngIf="total !== 0">
           <div class="col-md-12 col-sm-12 align-self-center">
             <pagination-controls (pageChange)="page = $event" class="theme-pagination p-3 text-center"
-              previousLabel="قبلی" nextLabel="بعدی"></pagination-controls>
+              [maxSize]="pageSize" previousLabel="قبلی" nextLabel="بعدی"></pagination-controls>
           </div>
         </div>
       </div>

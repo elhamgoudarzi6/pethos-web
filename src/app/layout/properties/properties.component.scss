@@ -276,7 +276,7 @@ property-item.grid-item.full-width-page.column-4 .address,
   font-family: IRANSans_Bold;
   color: rgb(139, 139, 139) !important;
 }
-.price-type span{
+.price-type .green{
   padding: 3px 6px;
   margin: 4px;
   font-size: 11px;
@@ -286,6 +286,17 @@ property-item.grid-item.full-width-page.column-4 .address,
   text-transform: uppercase;
   border-radius: 4px;
   background: var(--color-green);
+}
+.price-type .orange{
+  padding: 3px 6px;
+  margin: 4px;
+  font-size: 11px;
+  font-family: IRANSans_Bold;
+  color: #fff;
+  font-weight: 500;
+  text-transform: uppercase;
+  border-radius: 4px;
+  background: rgb(249, 185, 66);
 }
 .property-item .address,
 .property-item .date {

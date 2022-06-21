@@ -19,7 +19,8 @@
                       ">
                   <div class="thumbnail-section">
                     <div class="price-type">
-                      <span class="green font-iran-bold">{{item.priceType}}</span>
+                      <span *ngIf="item.priceType ==='به قیمت'" class="green font-iran-bold">{{ item.priceType }}</span>
+                      <span *ngIf="item.priceType ==='مناسب'"  class="orange font-iran-bold">{{  item.priceType  }}</span>
                     </div>
                     <div class="property-status">
                       <span class="green font-iran-bold">{{item.TransactionType[0].title}}</span>
@@ -91,7 +92,7 @@
                         </div>
                       </div>
 
-                      <div class="actions row justify-content-center mt-3">
+                      <div class="actions row justify-content-center mt-3 rtl">
                         <div class="col-6 align-self-center">
                           <p class="date mb-0">
                             <i class="material-icons text-muted">date_range</i>
